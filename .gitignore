@@ -7,5 +7,6 @@ target
 *~
 *.swp
 *.log
-
-
+bin
+.gradle
+build

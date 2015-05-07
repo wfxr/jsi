@@ -1,0 +1,33 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+group = pGroup
+version = pVersion
+
+repositories {
+    maven {
+        url maven_path_topobyte
+    }
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.slf4j:slf4j-api:1.6.1"
+    compile "net.sf.trove4j:trove4j:3.0.3"
+    runtime "org.slf4j:slf4j-log4j12:1.6.1"
+    runtime "log4j:log4j:1.2.16"
+    testCompile "junit:junit:4.+"
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+	    repository(url: maven_url_topobyte)
+        }
+    }
+}
