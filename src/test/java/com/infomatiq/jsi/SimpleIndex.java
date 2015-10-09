@@ -24,8 +24,6 @@ import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.procedure.TIntProcedure;
 
-import java.util.Properties;
-
 /**
  * SimpleIndex
  * 
@@ -40,14 +38,6 @@ import java.util.Properties;
  */
 public class SimpleIndex implements SpatialIndex {
   TIntObjectHashMap<Rectangle> m_map = new TIntObjectHashMap<Rectangle>();
-
-  /**
-   * Does nothing. There are no implementation dependent properties for 
-   * the SimpleIndex spatial index.
-   */
-  public void init(Properties p) {
-    return;
-  }
 
   /**
    * Nearest
@@ -75,9 +65,11 @@ public class SimpleIndex implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#nearest(Point, gnu.trove.TIntProcedure, float)
    */
+  @Override
   public void nearest(Point p, final TIntProcedure v, float furthestDistance) {
     TIntArrayList nearestList = nearest(p, furthestDistance);
     nearestList.forEach(new TIntProcedure() {
+      @Override
       public boolean execute(int id) {
         v.execute(id);
         return true;
@@ -132,10 +124,12 @@ public class SimpleIndex implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#nearestN(Point, gnu.trove.TIntProcedure, int, float)
    */
+  @Override
   public void nearestN(Point p, final TIntProcedure v, int n,
       float furthestDistance) {
     TIntArrayList nearestList = nearestN(p, n, furthestDistance);
     nearestList.forEach(new TIntProcedure() {
+      @Override
       public boolean execute(int id) {
         v.execute(id);
         return true;
@@ -148,6 +142,7 @@ public class SimpleIndex implements SpatialIndex {
    * 
    * @see com.infomatiq.jsi.SpatialIndex#nearestNUnsorted(Point, gnu.trove.TIntProcedure, int, float)
    */
+  @Override
   public void nearestNUnsorted(Point p, final TIntProcedure v, int n,
       float furthestDistance) {
     nearestN(p, v, n, furthestDistance);
@@ -156,6 +151,7 @@ public class SimpleIndex implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#intersects(Rectangle, gnu.trove.TIntProcedure)
    */
+  @Override
   public void intersects(Rectangle r, TIntProcedure v) {
     TIntObjectIterator<Rectangle> i = m_map.iterator();
     while (i.hasNext()) {
@@ -171,6 +167,7 @@ public class SimpleIndex implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#contains(Rectangle, gnu.trove.TIntProcedure)
    */
+  @Override
   public void contains(Rectangle r, TIntProcedure v) {
     TIntObjectIterator<Rectangle> i = m_map.iterator();
     while (i.hasNext()) {
@@ -187,6 +184,7 @@ public class SimpleIndex implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#add(Rectangle, int)
    */
+  @Override
   public void add(Rectangle r, int id) {
     m_map.put(id, r.copy());
   }
@@ -194,6 +192,7 @@ public class SimpleIndex implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#delete(Rectangle, int)
    */
+  @Override
   public boolean delete(Rectangle r, int id) {
     Rectangle value = m_map.get(id);
 
@@ -207,6 +206,7 @@ public class SimpleIndex implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#size()
    */
+  @Override
   public int size() {
     return m_map.size();
   }
@@ -214,6 +214,7 @@ public class SimpleIndex implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#getBounds()
    */
+  @Override
   public Rectangle getBounds() {
     Rectangle bounds = null;
     TIntObjectIterator<Rectangle> i = m_map.iterator();
@@ -229,10 +230,4 @@ public class SimpleIndex implements SpatialIndex {
     return bounds;
   }
 
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#getVersion
-   */
-  public String getVersion() {
-    return "SimpleIndex-" + BuildProperties.getVersion();
-  }
 }

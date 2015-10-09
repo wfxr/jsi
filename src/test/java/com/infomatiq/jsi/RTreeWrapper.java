@@ -20,8 +20,6 @@ package com.infomatiq.jsi;
 
 import gnu.trove.procedure.TIntProcedure;
 
-import java.util.Properties;
-
 import com.infomatiq.jsi.rtree.RTree;
 
 /**
@@ -41,24 +39,16 @@ public class RTreeWrapper implements SpatialIndex {
       m_intProcedure = ip;
     }
 
+    @Override
     public boolean execute(int i) {
       return m_intProcedure.execute(i);
     }
   }
 
   /**
-   * @see com.infomatiq.jsi.SpatialIndex#init(Properties)
-   */
-  public void init(Properties props) {
-    // create a memory-based storage manager
-
-    tree = new RTree();
-    tree.init(props);
-  }
-
-  /**
    * @see com.infomatiq.jsi.SpatialIndex#nearest(Point, gnu.trove.TIntProcedure, float)
    */
+  @Override
   public void nearest(Point p, TIntProcedure v, float furthestDistance) {
     tree.nearest(new Point(p.x, p.y),
         new IntProcedure2(v),
@@ -68,6 +58,7 @@ public class RTreeWrapper implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#nearestN(Point, gnu.trove.TIntProcedure, int, float)
    */
+  @Override
   public void nearestN(Point p, TIntProcedure v, int n, float furthestDistance) {
     tree.nearestN(new Point(p.x, p.y),
         new IntProcedure2(v),
@@ -78,6 +69,7 @@ public class RTreeWrapper implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#nearestNUnsorted(Point, gnu.trove.TIntProcedure, int, float)
    */
+  @Override
   public void nearestNUnsorted(Point p, TIntProcedure v, int n,
       float furthestDistance) {
     tree.nearestNUnsorted(new Point(p.x, p.y),
@@ -89,6 +81,7 @@ public class RTreeWrapper implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#intersects(Rectangle, gnu.trove.TIntProcedure)
    */
+  @Override
   public void intersects(Rectangle r, TIntProcedure ip) {
     Rectangle r2 = new Rectangle(r.minX, r.minY, r.maxX, r.maxY);
     tree.intersects(r2, new IntProcedure2(ip));
@@ -97,6 +90,7 @@ public class RTreeWrapper implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#contains(Rectangle, gnu.trove.TIntProcedure)
    */
+  @Override
   public void contains(Rectangle r, TIntProcedure ip) {
     Rectangle r2 = new Rectangle(r.minX, r.minY, r.maxX, r.maxY);
     tree.contains(r2, new IntProcedure2(ip));
@@ -105,6 +99,7 @@ public class RTreeWrapper implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#add(Rectangle, int)
    */
+  @Override
   public void add(Rectangle r, int id) {
     Rectangle r2 = new Rectangle(r.minX, r.minY, r.maxX, r.maxY);
     tree.add(r2, id);
@@ -113,6 +108,7 @@ public class RTreeWrapper implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#delete(Rectangle, int)
    */
+  @Override
   public boolean delete(Rectangle r, int id) {
     Rectangle r2 = new Rectangle(r.minX, r.minY, r.maxX, r.maxY);
     return tree.delete(r2, id);
@@ -121,6 +117,7 @@ public class RTreeWrapper implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#size()
    */
+  @Override
   public int size() {
     return tree.size();
   }
@@ -128,15 +125,9 @@ public class RTreeWrapper implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#getBounds()
    */
+  @Override
   public Rectangle getBounds() {
     return tree.getBounds();
-  }
-
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#getVersion()
-   */
-  public String getVersion() {
-    return "RTreeWrapper-" + BuildProperties.getVersion();
   }
 
 }

@@ -18,7 +18,6 @@
 
 package com.infomatiq.jsi;
 
-import java.util.Properties;
 import java.util.Random;
 
 import junit.framework.TestCase;
@@ -45,10 +44,7 @@ public class MoveEntriesTest extends TestCase {
 
   private void run(int minNodeEntries, int maxNodeEntries, int numRects,
       int numMoves) {
-    Properties p = new Properties();
-    p.setProperty("MinNodeEntries", Integer.toString(minNodeEntries));
-    p.setProperty("MaxNodeEntries", Integer.toString(maxNodeEntries));
-    RTree rtree = (RTree) SpatialIndexFactory.newInstance("rtree.RTree", p);
+    RTree rtree = new RTree(minNodeEntries, maxNodeEntries);
 
     Rectangle[] rects = new Rectangle[numRects];
 

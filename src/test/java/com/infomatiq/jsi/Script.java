@@ -32,7 +32,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -60,8 +59,8 @@ public class Script {
   //    testCase = t;
   //  }
 
-  private void writePerformanceLog(String operation, String indexType,
-      String testId, Properties p, int size, long timeMillis, int count) {
+  private void writePerformanceLog(String operation, IndexType type,
+      String testId, int size, long timeMillis, int count) {
     File f = new File("target/test-classes/performance-log-" + operation);
     f.getParentFile().mkdirs();
 
@@ -71,16 +70,13 @@ public class Script {
           new FileOutputStream(f)));
 
       if (created) pw
-          .println("IndexType,TestId,MinNodeEntries,MaxNodeEntries,TreeVariant,TreeSize,AddCount,AverageAddTime");
+          .println("IndexType,TestId,MinNodeEntries,MaxNodeEntries,TreeSize,AddCount,AverageAddTime");
 
       pw.println(
-          indexType + "," + testId + "," +
-              p.getProperty("MinNodeEntries") + "," +
-              p.getProperty("MaxNodeEntries") + "," +
-              p.getProperty("TreeVariant") + "," +
+          type + "," + testId + "," +
               size + "," +
               count + "," +
-              (timeMillis / 1000.0) / (float) count);
+              (timeMillis / 1000.0) / count);
       pw.flush();
       pw.close();
     } catch (Throwable t) {
@@ -134,17 +130,13 @@ public class Script {
   /**
    * @return Time taken to execute method, in milliseconds.
    */
-  public long run(String indexType, Properties indexProperties, String testId,
-      int testType) {
+  public long run(IndexType type, int minNodeEntries, int maxNodeEntries,
+      String testId, int testType) {
     if (log.isDebugEnabled()) {
-      log.debug("runScript: " + indexType + ", testId=" + testId +
-          ", minEntries=" + indexProperties.getProperty("MinNodeEntries") +
-          ", maxEntries=" + indexProperties.getProperty("MaxNodeEntries") +
-          ", treeVariant=" + indexProperties.getProperty("TreeVariant"));
+      log.debug("runScript: " + type + ", testId=" + testId);
     }
 
-    SpatialIndex si = SpatialIndexFactory.newInstance(indexType,
-        indexProperties);
+    SpatialIndex si = SpatialIndexFactory.newInstance(type);
 
     ListDecorator ld = null;
 
@@ -209,7 +201,8 @@ public class Script {
     if (testType == REFERENCE_COMPARISON || testType == REFERENCE_GENERATE) {
       String outputFilename = null;
       if (testType == REFERENCE_COMPARISON) {
-        outputFilename = strTestResultsRoot + "-" + si.getVersion() +
+        outputFilename = strTestResultsRoot + "-"
+            + type.toString().toLowerCase() +
             "-" + new SimpleDateFormat("yyMMddHHmmss").format(new Date());
       } else {
         outputFilename = strTestResultsRoot + "-reference";
@@ -289,7 +282,7 @@ public class Script {
                   + time / (float) count + " ms per add)");
             }
             if (testType == PERFORMANCE) {
-              writePerformanceLog("add", indexType, testId, indexProperties,
+              writePerformanceLog("add", type, testId,
                   si.size(), time, count);
             }
           } else if (operation.equals("DELETERANDOM")) {
@@ -328,7 +321,7 @@ public class Script {
                   + time / (float) count + " ms per delete)");
             }
             if (testType == PERFORMANCE) {
-              writePerformanceLog("delete", indexType, testId, indexProperties,
+              writePerformanceLog("delete", type, testId,
                   si.size(), time, count);
             }
           }
@@ -372,8 +365,8 @@ public class Script {
                   + (totalEntriesReturned / (float) queryCount) + " entries");
             }
             if (testType == PERFORMANCE) {
-              writePerformanceLog("nearest", indexType, testId,
-                  indexProperties, si.size(), time, queryCount);
+              writePerformanceLog("nearest", type, testId,
+                  si.size(), time, queryCount);
             }
           } else if (operation.equals("NEARESTNRANDOM")) {
             int queryCount = Integer.parseInt(st.nextToken());
@@ -418,8 +411,8 @@ public class Script {
                   + (totalEntriesReturned / (float) queryCount) + " entries");
             }
             if (testType == PERFORMANCE) {
-              writePerformanceLog("nearestN", indexType, testId,
-                  indexProperties, si.size(), time, queryCount);
+              writePerformanceLog("nearestN", type, testId,
+                  si.size(), time, queryCount);
             }
           } else if (operation.equals("INTERSECTRANDOM")) {
             int queryCount = Integer.parseInt(st.nextToken());
@@ -459,8 +452,8 @@ public class Script {
                   + (totalEntriesReturned / (float) queryCount) + " entries");
             }
             if (testType == PERFORMANCE) {
-              writePerformanceLog("intersect", indexType, testId,
-                  indexProperties, si.size(), time, queryCount);
+              writePerformanceLog("intersect", type, testId,
+                  si.size(), time, queryCount);
             }
           }
           else if (operation.equals("CONTAINSRANDOM")) {
@@ -489,7 +482,7 @@ public class Script {
 
                 while (i.hasNext()) {
                   tempBuffer.append(' ');
-                  tempBuffer.append((Integer) i.next()).toString();
+                  tempBuffer.append(i.next()).toString();
                 }
                 writeOutput(tempBuffer.toString(), outputFile, referenceFile);
               }
@@ -501,8 +494,8 @@ public class Script {
                   + (totalEntriesReturned / (float) queryCount) + " entries");
             }
             if (testType == PERFORMANCE) {
-              writePerformanceLog("contains", indexType, testId,
-                  indexProperties, si.size(), time, queryCount);
+              writePerformanceLog("contains", type, testId,
+                  si.size(), time, queryCount);
             }
           }
           else if (operation.equals("ADD")) {
@@ -553,7 +546,7 @@ public class Script {
               Iterator<Integer> i = l.iterator();
               while (i.hasNext()) {
                 outputBuffer.append(" ");
-                outputBuffer.append((Integer) i.next()).toString();
+                outputBuffer.append(i.next()).toString();
               }
               writeOutput(outputBuffer.toString(), outputFile, referenceFile);
             }

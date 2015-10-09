@@ -20,8 +20,6 @@ package com.infomatiq.jsi;
 
 import gnu.trove.procedure.TIntProcedure;
 
-import java.util.Properties;
-
 /**
  * An implementation of SpatialIndex that does absolutely nothing.
  * The purpose of this class is to measure the overhead of the
@@ -30,50 +28,51 @@ import java.util.Properties;
 public class NullIndex implements SpatialIndex {
 
   /**
-   * @see com.infomatiq.jsi.SpatialIndex#init(Properties)
-   */
-  public void init(Properties props) {
-  }
-
-  /**
    * @see com.infomatiq.jsi.SpatialIndex#nearest(Point, gnu.trove.TIntProcedure, float)
    */
+  @Override
   public void nearest(Point p, TIntProcedure v, float distance) {
   }
 
   /**
    * @see com.infomatiq.jsi.SpatialIndex#nearestN(Point, gnu.trove.TIntProcedure, int, float)
    */
+  @Override
   public void nearestN(Point p, TIntProcedure v, int n, float distance) {
   }
 
   /**
    * @see com.infomatiq.jsi.SpatialIndex#nearestNUnsorted(Point, gnu.trove.TIntProcedure, int, float)
    */
+  @Override
   public void nearestNUnsorted(Point p, TIntProcedure v, int n, float distance) {
   }
 
   /**
    * @see com.infomatiq.jsi.SpatialIndex#intersects(Rectangle, gnu.trove.TIntProcedure)
    */
+  @Override
   public void intersects(Rectangle r, TIntProcedure ip) {
   }
 
   /**
    * @see com.infomatiq.jsi.SpatialIndex#contains(Rectangle, gnu.trove.TIntProcedure)
    */
+  @Override
   public void contains(Rectangle r, TIntProcedure ip) {
   }
 
   /**
    * @see com.infomatiq.jsi.SpatialIndex#add(Rectangle, int)
    */
+  @Override
   public void add(Rectangle r, int id) {
   }
 
   /**
    * @see com.infomatiq.jsi.SpatialIndex#delete(Rectangle, int)
    */
+  @Override
   public boolean delete(Rectangle r, int id) {
     return false;
   }
@@ -81,6 +80,7 @@ public class NullIndex implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#size()
    */
+  @Override
   public int size() {
     return 0;
   }
@@ -88,14 +88,9 @@ public class NullIndex implements SpatialIndex {
   /**
    * @see com.infomatiq.jsi.SpatialIndex#getBounds()
    */
+  @Override
   public Rectangle getBounds() {
     return null;
   }
 
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#getVersion()
-   */
-  public String getVersion() {
-    return "NullIndex-" + BuildProperties.getVersion();
-  }
 }

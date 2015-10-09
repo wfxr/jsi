@@ -25,12 +25,9 @@ import gnu.trove.procedure.TIntProcedure;
 import gnu.trove.stack.TIntStack;
 import gnu.trove.stack.array.TIntArrayStack;
 
-import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.infomatiq.jsi.BuildProperties;
 import com.infomatiq.jsi.Point;
 import com.infomatiq.jsi.PriorityQueue;
 import com.infomatiq.jsi.Rectangle;
@@ -109,15 +106,21 @@ public class RTree implements SpatialIndex {
       new PriorityQueue(PriorityQueue.SORT_ORDER_ASCENDING);
 
   /**
-   * Constructor. Use init() method to initialize parameters of the RTree.
+   * Constructor with default min and max nodes per entry.
    */
   public RTree() {
-    return; // NOP
+    this(DEFAULT_MIN_NODE_ENTRIES, DEFAULT_MAX_NODE_ENTRIES);
+  }
+
+  /**
+   * Constructor with min and max nodes per entry.
+   */
+  public RTree(int minNodeEntries, int maxNodeEntries) {
+    init(minNodeEntries, maxNodeEntries);
   }
 
   //-------------------------------------------------------------------------
   // public implementation of SpatialIndex interface:
-  //  init(Properties)
   //  add(Rectangle, int)
   //  delete(Rectangle, int)
   //  nearest(Point, TIntProcedure, float)
@@ -136,35 +139,24 @@ public class RTree implements SpatialIndex {
    * in a node. The default value is half of the MaxNodeEntries value (rounded
    * down), which is used if the property is not specified or is less than 1.
    * </ul></p>
-   *
-   * @see com.infomatiq.jsi.SpatialIndex#init(Properties)
    */
-  @Override
-  public void init(Properties props) {
-    if (props == null) {
-      // use sensible defaults if null is passed in.
+  private void init(int minNodeEntries, int maxNodeEntries) {
+    this.minNodeEntries = minNodeEntries;
+    this.maxNodeEntries = maxNodeEntries;
+
+    // Obviously a node with less than 2 entries cannot be split.
+    // The node splitting algorithm will work with only 2 entries
+    // per node, but will be inefficient.
+    if (maxNodeEntries < 2) {
+      log.warn("Invalid MaxNodeEntries = " + maxNodeEntries
+          + " Resetting to default value of " + DEFAULT_MAX_NODE_ENTRIES);
       maxNodeEntries = DEFAULT_MAX_NODE_ENTRIES;
-      minNodeEntries = DEFAULT_MIN_NODE_ENTRIES;
-    } else {
-      maxNodeEntries = Integer.parseInt(props
-          .getProperty("MaxNodeEntries", "0"));
-      minNodeEntries = Integer.parseInt(props
-          .getProperty("MinNodeEntries", "0"));
+    }
 
-      // Obviously a node with less than 2 entries cannot be split.
-      // The node splitting algorithm will work with only 2 entries
-      // per node, but will be inefficient.
-      if (maxNodeEntries < 2) {
-        log.warn("Invalid MaxNodeEntries = " + maxNodeEntries
-            + " Resetting to default value of " + DEFAULT_MAX_NODE_ENTRIES);
-        maxNodeEntries = DEFAULT_MAX_NODE_ENTRIES;
-      }
-
-      // The MinNodeEntries must be less than or equal to (int) (MaxNodeEntries / 2)
-      if (minNodeEntries < 1 || minNodeEntries > maxNodeEntries / 2) {
-        log.warn("MinNodeEntries must be between 1 and MaxNodeEntries / 2");
-        minNodeEntries = maxNodeEntries / 2;
-      }
+    // The MinNodeEntries must be less than or equal to (int) (MaxNodeEntries / 2)
+    if (minNodeEntries < 1 || minNodeEntries > maxNodeEntries / 2) {
+      log.warn("MinNodeEntries must be between 1 and MaxNodeEntries / 2");
+      minNodeEntries = maxNodeEntries / 2;
     }
 
     entryStatus = new byte[maxNodeEntries];
@@ -651,14 +643,6 @@ public class RTree implements SpatialIndex {
       bounds.maxY = n.mbrMaxY;
     }
     return bounds;
-  }
-
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#getVersion()
-   */
-  @Override
-  public String getVersion() {
-    return "RTree-" + BuildProperties.getVersion();
   }
 
   //-------------------------------------------------------------------------

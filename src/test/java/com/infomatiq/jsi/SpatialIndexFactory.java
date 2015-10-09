@@ -18,37 +18,25 @@
 
 package com.infomatiq.jsi;
 
-import java.util.Properties;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.infomatiq.jsi.rtree.RTree;
 
 /**
  * Factory class used to create instances of spatial indexes
  */
 public class SpatialIndexFactory {
 
-  private final static Logger log =
-      LoggerFactory.getLogger(SpatialIndexFactory.class);
-
-  public static SpatialIndex newInstance(String type) {
-    return newInstance(type, null);
-  }
-
-  public static SpatialIndex newInstance(String type, Properties props) {
-    SpatialIndex si = null;
-    String className = "com.infomatiq.jsi." + type;
-    try {
-      si = (SpatialIndex) Class.forName(className).newInstance();
-      si.init(props);
-    } catch (ClassNotFoundException cnfe) {
-      log.error(cnfe.toString());
-    } catch (IllegalAccessException iae) {
-      log.error(iae.toString());
-    } catch (InstantiationException ie) {
-      log.error(ie.toString());
+  public static SpatialIndex newInstance(IndexType type) {
+    switch (type) {
+    default:
+    case NULL_INDEX:
+      return new NullIndex();
+    case SIMPLE_INDEX:
+      return new SimpleIndex();
+    case RTREE:
+      return new RTree();
+    case RTREE_WRAPPER:
+      return new RTreeWrapper();
     }
-
-    return si;
   }
+
 }

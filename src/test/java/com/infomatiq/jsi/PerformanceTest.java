@@ -18,8 +18,6 @@
 
 package com.infomatiq.jsi;
 
-import java.util.Properties;
-
 import junit.framework.TestCase;
 
 import org.slf4j.Logger;
@@ -56,15 +54,10 @@ public class PerformanceTest extends TestCase
     // node splits. Therefore set the MinNodeEntries to 1.
     // do each test 3 times to see if there is any variance due to hotspot
     // VM (or something else).
-    Properties p = new Properties();
 
-    p.setProperty("MinNodeEntries", "1");
-    p.setProperty("MaxNodeEntries", "10");
-    p.setProperty("TreeVariant", "Linear");
-
-    script.run("rtree.RTree", p, "allqueries-10000", Script.PERFORMANCE);
-    script.run("rtree.RTree", p, "allqueries-10000", Script.PERFORMANCE);
-    script.run("rtree.RTree", p, "allqueries-10000", Script.PERFORMANCE);
+    script.run(IndexType.RTREE, 1, 10, "allqueries-10000", Script.PERFORMANCE);
+    script.run(IndexType.RTREE, 1, 10, "allqueries-10000", Script.PERFORMANCE);
+    script.run(IndexType.RTREE, 1, 10, "allqueries-10000", Script.PERFORMANCE);
 
     // script.run("test.RTreeWrapper", p, "allqueries-10000",
     // Script.PERFORMANCE);
@@ -76,13 +69,9 @@ public class PerformanceTest extends TestCase
 
   public void testNearestN()
   {
-    Properties p = new Properties();
-    p.setProperty("MinNodeEntries", "5");
-    p.setProperty("MaxNodeEntries", "10");
-
-    script.run("rtree.RTree", p, "nearestN-100", Script.PERFORMANCE);
-    script.run("rtree.RTree", p, "nearestN-1000", Script.PERFORMANCE);
-    script.run("rtree.RTree", p, "nearestN-10000", Script.PERFORMANCE);
+    script.run(IndexType.RTREE, 5, 10, "nearestN-100", Script.PERFORMANCE);
+    script.run(IndexType.RTREE, 5, 10, "nearestN-1000", Script.PERFORMANCE);
+    script.run(IndexType.RTREE, 5, 10, "nearestN-10000", Script.PERFORMANCE);
   }
 
   /**
@@ -93,37 +82,39 @@ public class PerformanceTest extends TestCase
   {
     log.debug("testAllFunctions()");
 
-    Properties p = new Properties();
-
     // SimpleIndex and NullIndex do not use Min/MaxNodeEntries, so do them
     // first.
-    script.run("SimpleIndex", p, "allfunctions-100", Script.PERFORMANCE);
-    script.run("SimpleIndex", p, "allfunctions-1000", Script.PERFORMANCE);
-    script.run("SimpleIndex", p, "allfunctions-10000", Script.PERFORMANCE);
+    script.run(IndexType.SIMPLE_INDEX, 1, 1, "allfunctions-100",
+        Script.PERFORMANCE);
+    script.run(IndexType.SIMPLE_INDEX, 1, 1, "allfunctions-1000",
+        Script.PERFORMANCE);
+    script.run(IndexType.SIMPLE_INDEX, 1, 1, "allfunctions-10000",
+        Script.PERFORMANCE);
     // Only go up to 10000 for simple index, as it takes too int
 
-    p.setProperty("TreeVariant", "null");
-    script.run("NullIndex", p, "allfunctions-100", Script.PERFORMANCE);
-    script.run("NullIndex", p, "allfunctions-1000", Script.PERFORMANCE);
-    script.run("NullIndex", p, "allfunctions-10000", Script.PERFORMANCE);
-    // script.run("NullIndex", p, "allfunctions-100000",
+    script.run(IndexType.NULL_INDEX, 1, 1, "allfunctions-100",
+        Script.PERFORMANCE);
+    script.run(IndexType.NULL_INDEX, 1, 1, "allfunctions-1000",
+        Script.PERFORMANCE);
+    script.run(IndexType.NULL_INDEX, 1, 1, "allfunctions-10000",
+        Script.PERFORMANCE);
+    // script.run(IndexType.NULL_INDEX, 1, 1, "allfunctions-100000",
     // Script.PERFORMANCE);
 
-    p.setProperty("MinNodeEntries", "5");
-    p.setProperty("MaxNodeEntries", "20"); // reasonable values?
-
-    p.setProperty("TreeVariant", "Linear");
-    script.run("RTreeWrapper", p, "allfunctions-100", Script.PERFORMANCE);
-    script.run("RTreeWrapper", p, "allfunctions-1000", Script.PERFORMANCE);
-    script.run("RTreeWrapper", p, "allfunctions-10000", Script.PERFORMANCE);
-    // script.run("RTreeWrapper", p, "allfunctions-100000",
+    script.run(IndexType.RTREE_WRAPPER, 5, 20, "allfunctions-100",
+        Script.PERFORMANCE);
+    script.run(IndexType.RTREE_WRAPPER, 5, 20, "allfunctions-1000",
+        Script.PERFORMANCE);
+    script.run(IndexType.RTREE_WRAPPER, 5, 20, "allfunctions-10000",
+        Script.PERFORMANCE);
+    // script.run(IndexType.RTREE_WRAPPER, 5, 20, "allfunctions-100000",
     // Script.PERFORMANCE);
 
-    p.setProperty("TreeVariant", "Linear");
-    script.run("rtree.RTree", p, "allfunctions-100", Script.PERFORMANCE);
-    script.run("rtree.RTree", p, "allfunctions-1000", Script.PERFORMANCE);
-    script.run("rtree.RTree", p, "allfunctions-10000", Script.PERFORMANCE);
-    // script.run("rtree.RTree", p, "allfunctions-100000",
+    script.run(IndexType.RTREE, 5, 20, "allfunctions-100", Script.PERFORMANCE);
+    script.run(IndexType.RTREE, 5, 20, "allfunctions-1000", Script.PERFORMANCE);
+    script
+        .run(IndexType.RTREE, 5, 20, "allfunctions-10000", Script.PERFORMANCE);
+    // script.run(IndexType.RTREE, 5, 20, "allfunctions-100000",
     // Script.PERFORMANCE);
   }
 }

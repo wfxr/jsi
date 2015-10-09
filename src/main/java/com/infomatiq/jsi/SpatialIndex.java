@@ -20,22 +20,11 @@ package com.infomatiq.jsi;
 
 import gnu.trove.procedure.TIntProcedure;
 
-import java.util.Properties;
-
 /**
  * Defines methods that must be implemented by all
  * spatial indexes. This includes the RTree and its variants.
  */
 public interface SpatialIndex {
-
-  /**
-   * Initializes any implementation dependent properties
-   * of the spatial index. For example, RTree implementations
-   * will have a NodeSize property.
-   *
-   * @param props The set of properties used to initialize the spatial index.
-   */
-  public void init(Properties props);
 
   /**
    * Adds a new rectangle to the spatial index
@@ -150,12 +139,5 @@ public interface SpatialIndex {
    * or null if there are no entries.
    */
   public Rectangle getBounds();
-
-  /**
-   * Returns a string identifying the type of
-   * spatial index, and the version number,
-   * eg "SimpleIndex-0.1"
-   */
-  public String getVersion();
 
 }
