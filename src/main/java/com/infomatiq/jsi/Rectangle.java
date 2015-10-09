@@ -18,8 +18,6 @@
 
 package com.infomatiq.jsi;
 
-
-
 /**
  * Currently hardcoded to 2 dimensions, but could be extended.
  */
@@ -50,14 +48,14 @@ public class Rectangle {
     set(x1, y1, x2, y2);
   }
 
- /**
-   * Sets the size of the rectangle.
-   *
-   * @param x1 coordinate of any corner of the rectangle
-   * @param y1 (see x1)
-   * @param x2 coordinate of the opposite corner
-   * @param y2 (see x2)
-   */
+  /**
+    * Sets the size of the rectangle.
+    *
+    * @param x1 coordinate of any corner of the rectangle
+    * @param y1 (see x1)
+    * @param x2 coordinate of the opposite corner
+    * @param y2 (see x2)
+    */
   public void set(float x1, float y1, float x2, float y2) {
     minX = Math.min(x1, x2);
     maxX = Math.max(x1, x2);
@@ -117,9 +115,11 @@ public class Rectangle {
    *
    * @return true if r1 intersects r2, false otherwise.
    */
-  static public boolean intersects(float r1MinX, float r1MinY, float r1MaxX, float r1MaxY,
-                                 float r2MinX, float r2MinY, float r2MaxX, float r2MaxY) {
-    return r1MaxX >= r2MinX && r1MinX <= r2MaxX && r1MaxY >= r2MinY && r1MinY <= r2MaxY;
+  static public boolean intersects(float r1MinX, float r1MinY, float r1MaxX,
+      float r1MaxY,
+      float r2MinX, float r2MinY, float r2MaxX, float r2MaxY) {
+    return r1MaxX >= r2MinX && r1MinX <= r2MaxX && r1MaxY >= r2MinY
+        && r1MinY <= r2MaxY;
   }
 
   /**
@@ -148,9 +148,11 @@ public class Rectangle {
    *
    * @return true if r1 contains r2, false otherwise.
    */
-  static public boolean contains(float r1MinX, float r1MinY, float r1MaxX, float r1MaxY,
-                                 float r2MinX, float r2MinY, float r2MaxX, float r2MaxY) {
-    return r1MaxX >= r2MaxX && r1MinX <= r2MinX && r1MaxY >= r2MaxY && r1MinY <= r2MinY;
+  static public boolean contains(float r1MinX, float r1MinY, float r1MaxX,
+      float r1MaxY,
+      float r2MinX, float r2MinY, float r2MaxX, float r2MaxY) {
+    return r1MaxX >= r2MaxX && r1MinX <= r2MinX && r1MaxY >= r2MaxY
+        && r1MinY <= r2MinY;
   }
 
   /**
@@ -210,11 +212,13 @@ public class Rectangle {
    *
    * @return distance beween this rectangle and the passed point.
    */
-  static public float distance(float minX, float minY, float maxX, float maxY, float pX, float pY) {
+  static public float distance(float minX, float minY, float maxX, float maxY,
+      float pX, float pY) {
     return (float) Math.sqrt(distanceSq(minX, minY, maxX, maxY, pX, pY));
   }
 
-  static public float distanceSq(float minX, float minY, float maxX, float maxY, float pX, float pY) {
+  static public float distanceSq(float minX, float minY, float maxX,
+      float maxY, float pX, float pY) {
     float distanceSqX = 0;
     float distanceSqY = 0;
 
@@ -249,12 +253,12 @@ public class Rectangle {
   public float distance(Rectangle r) {
     float distanceSquared = 0;
     float greatestMin = Math.max(minX, r.minX);
-    float leastMax    = Math.min(maxX, r.maxX);
+    float leastMax = Math.min(maxX, r.maxX);
     if (greatestMin > leastMax) {
       distanceSquared += ((greatestMin - leastMax) * (greatestMin - leastMax));
     }
     greatestMin = Math.max(minY, r.minY);
-    leastMax    = Math.min(maxY, r.maxY);
+    leastMax = Math.min(maxY, r.maxY);
     if (greatestMin > leastMax) {
       distanceSquared += ((greatestMin - leastMax) * (greatestMin - leastMax));
     }
@@ -273,7 +277,7 @@ public class Rectangle {
    */
   public float enlargement(Rectangle r) {
     float enlargedArea = (Math.max(maxX, r.maxX) - Math.min(minX, r.minX)) *
-                         (Math.max(maxY, r.maxY) - Math.min(minY, r.minY));
+        (Math.max(maxY, r.maxY) - Math.min(minY, r.minY));
 
     return enlargedArea - area();
   }
@@ -293,8 +297,9 @@ public class Rectangle {
     *
     * @return enlargement
     */
-  static public float enlargement(float r1MinX, float r1MinY, float r1MaxX, float r1MaxY,
-                                  float r2MinX, float r2MinY, float r2MaxX, float r2MaxY) {
+  static public float enlargement(float r1MinX, float r1MinY, float r1MaxX,
+      float r1MaxY,
+      float r2MinX, float r2MinY, float r2MaxX, float r2MaxY) {
     float r1Area = (r1MaxX - r1MinX) * (r1MaxY - r1MinY);
 
     if (r1Area == Float.POSITIVE_INFINITY) {
@@ -379,13 +384,13 @@ public class Rectangle {
 
   @Override
   public int hashCode() {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + Float.floatToIntBits(this.maxX);
-      result = prime * result + Float.floatToIntBits(this.maxY);
-      result = prime * result + Float.floatToIntBits(this.minX);
-      result = prime * result + Float.floatToIntBits(this.minY);
-      return result;
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + Float.floatToIntBits(this.maxX);
+    result = prime * result + Float.floatToIntBits(this.maxY);
+    result = prime * result + Float.floatToIntBits(this.minX);
+    result = prime * result + Float.floatToIntBits(this.minY);
+    return result;
   }
 
   /**
@@ -395,7 +400,7 @@ public class Rectangle {
    * @param o The object to compare with this rectangle
    */
   @Override
-public boolean equals(Object o) {
+  public boolean equals(Object o) {
     boolean equals = false;
     if (o instanceof Rectangle) {
       Rectangle r = (Rectangle) o;

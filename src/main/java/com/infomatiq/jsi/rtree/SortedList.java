@@ -80,20 +80,22 @@ public class SortedList {
       if (ids.size() >= preferredMaximumSize) {
         int lowestPriorityIndex = ids.size() - 1;
         while ((lowestPriorityIndex - 1 >= 0) &&
-               (priorities.get(lowestPriorityIndex - 1) == lowestPriority)) {
+            (priorities.get(lowestPriorityIndex - 1) == lowestPriority)) {
           lowestPriorityIndex--;
         }
 
         if (lowestPriorityIndex >= preferredMaximumSize - 1) {
           ids.remove(lowestPriorityIndex, ids.size() - lowestPriorityIndex);
-          priorities.remove(lowestPriorityIndex, priorities.size() - lowestPriorityIndex);
+          priorities.remove(lowestPriorityIndex, priorities.size()
+              - lowestPriorityIndex);
         }
       }
 
       // put the new entry in the correct position. Could do a binary search here if the
       // preferredMaximumSize was large.
       int insertPosition = ids.size();
-      while (insertPosition - 1 >= 0 && priority > priorities.get(insertPosition - 1)) {
+      while (insertPosition - 1 >= 0
+          && priority > priorities.get(insertPosition - 1)) {
         insertPosition--;
       }
 

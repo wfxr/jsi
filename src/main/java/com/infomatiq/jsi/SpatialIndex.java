@@ -145,7 +145,6 @@ public interface SpatialIndex {
    */
   public int size();
 
-
   /**
    * Returns the bounds of all the entries in the spatial index,
    * or null if there are no entries.
