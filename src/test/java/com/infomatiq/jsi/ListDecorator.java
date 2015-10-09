@@ -27,41 +27,41 @@ import java.util.List;
  * ListDecorator
  */
 public class ListDecorator {
- SpatialIndex m_si = null;
- 
- public ListDecorator(SpatialIndex si) {
-   m_si = si;
- }
- 
- class AddToListProcedure implements TIntProcedure {
-   private List<Integer> m_list = new ArrayList<Integer>();
-   
-   public boolean execute(int id) {
-     m_list.add(new Integer(id));
-     return true;
-   }
-   
-   public List<Integer> getList() {
-     return m_list;	
-   }	
- }
- 
- /**
-   * Finds all rectangles that are nearest to the passed 
-   * rectangle.
-   * 
-   * @param  p The p point which this method finds
-   *           the nearest neighbours.
-   * 
-   * @return List of IDs of rectangles that are nearest
-   *         to the passed rectangle, ordered by distance (nearest first).
-   */
+  SpatialIndex m_si = null;
+
+  public ListDecorator(SpatialIndex si) {
+    m_si = si;
+  }
+
+  class AddToListProcedure implements TIntProcedure {
+    private List<Integer> m_list = new ArrayList<Integer>();
+
+    public boolean execute(int id) {
+      m_list.add(new Integer(id));
+      return true;
+    }
+
+    public List<Integer> getList() {
+      return m_list;
+    }
+  }
+
+  /**
+    * Finds all rectangles that are nearest to the passed 
+    * rectangle.
+    * 
+    * @param  p The p point which this method finds
+    *           the nearest neighbours.
+    * 
+    * @return List of IDs of rectangles that are nearest
+    *         to the passed rectangle, ordered by distance (nearest first).
+    */
   public List<Integer> nearest(Point p, float furthestDistance) {
-  	AddToListProcedure v = new AddToListProcedure();
-    m_si.nearest(p, v, furthestDistance);	
+    AddToListProcedure v = new AddToListProcedure();
+    m_si.nearest(p, v, furthestDistance);
     return v.getList();
   }
-  
+
   /**
    * Finds all rectangles that are nearest to the passed 
    * rectangle.
@@ -75,10 +75,10 @@ public class ListDecorator {
    */
   public List<Integer> nearestN(Point p, int maxCount, float furthestDistance) {
     AddToListProcedure v = new AddToListProcedure();
-    m_si.nearestN(p, v, maxCount, furthestDistance); 
+    m_si.nearestN(p, v, maxCount, furthestDistance);
     return v.getList();
   }
-  
+
   /**
    * Finds all rectangles that intersect the passed rectangle.
    * 
@@ -89,11 +89,11 @@ public class ListDecorator {
    *         rectangle.
    */
   public List<Integer> intersects(Rectangle r) {
-  	AddToListProcedure v = new AddToListProcedure();
-    m_si.intersects(r, v);	
+    AddToListProcedure v = new AddToListProcedure();
+    m_si.intersects(r, v);
     return v.getList();
   }
-  
+
   /**
    * Finds all rectangles contained by the passed rectangle.
    * 
@@ -104,9 +104,9 @@ public class ListDecorator {
    *         passed rectangle.
    */
   public List<Integer> contains(Rectangle r) {
-  	AddToListProcedure v = new AddToListProcedure();
-    m_si.contains(r, v);	
+    AddToListProcedure v = new AddToListProcedure();
+    m_si.contains(r, v);
     return v.getList();
   }
- 
+
 }

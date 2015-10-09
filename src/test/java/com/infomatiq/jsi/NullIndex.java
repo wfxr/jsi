@@ -28,7 +28,7 @@ import java.util.Properties;
  * testing framework.
  */
 public class NullIndex implements SpatialIndex {
-    
+
   /**
    * @see com.infomatiq.jsi.SpatialIndex#init(Properties)
    */
@@ -46,13 +46,13 @@ public class NullIndex implements SpatialIndex {
    */
   public void nearestN(Point p, TIntProcedure v, int n, float distance) {
   }
- 
+
   /**
    * @see com.infomatiq.jsi.SpatialIndex#nearestNUnsorted(Point, gnu.trove.TIntProcedure, int, float)
    */
   public void nearestNUnsorted(Point p, TIntProcedure v, int n, float distance) {
   }
-  
+
   /**
    * @see com.infomatiq.jsi.SpatialIndex#intersects(Rectangle, gnu.trove.TIntProcedure)
    */
@@ -84,12 +84,12 @@ public class NullIndex implements SpatialIndex {
   public int size() {
     return 0;
   }
-  
+
   /**
    * @see com.infomatiq.jsi.SpatialIndex#getBounds()
    */
   public Rectangle getBounds() {
-    return null; 
+    return null;
   }
 
   /**

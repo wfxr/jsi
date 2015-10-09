@@ -33,25 +33,25 @@ import com.infomatiq.jsi.rtree.RTree;
  */
 public class RTreeWrapper implements SpatialIndex {
   private RTree tree;
-  
+
   class IntProcedure2 implements TIntProcedure {
     private TIntProcedure m_intProcedure = null;
-    
+
     public IntProcedure2(TIntProcedure ip) {
       m_intProcedure = ip;
     }
-    
+
     public boolean execute(int i) {
       return m_intProcedure.execute(i);
     }
   }
-  
+
   /**
    * @see com.infomatiq.jsi.SpatialIndex#init(Properties)
    */
   public void init(Properties props) {
     // create a memory-based storage manager
-    
+
     tree = new RTree();
     tree.init(props);
   }
@@ -61,35 +61,36 @@ public class RTreeWrapper implements SpatialIndex {
    */
   public void nearest(Point p, TIntProcedure v, float furthestDistance) {
     tree.nearest(new Point(p.x, p.y),
-                 new IntProcedure2(v),
-                 Float.POSITIVE_INFINITY);
+        new IntProcedure2(v),
+        Float.POSITIVE_INFINITY);
   }
-  
+
   /**
    * @see com.infomatiq.jsi.SpatialIndex#nearestN(Point, gnu.trove.TIntProcedure, int, float)
    */
   public void nearestN(Point p, TIntProcedure v, int n, float furthestDistance) {
     tree.nearestN(new Point(p.x, p.y),
-                 new IntProcedure2(v),
-                 n,
-                 furthestDistance);
+        new IntProcedure2(v),
+        n,
+        furthestDistance);
   }
 
   /**
    * @see com.infomatiq.jsi.SpatialIndex#nearestNUnsorted(Point, gnu.trove.TIntProcedure, int, float)
    */
-  public void nearestNUnsorted(Point p, TIntProcedure v, int n, float furthestDistance) {
+  public void nearestNUnsorted(Point p, TIntProcedure v, int n,
+      float furthestDistance) {
     tree.nearestNUnsorted(new Point(p.x, p.y),
-                 new IntProcedure2(v),
-                 n,
-                 furthestDistance);
+        new IntProcedure2(v),
+        n,
+        furthestDistance);
   }
-  
+
   /**
    * @see com.infomatiq.jsi.SpatialIndex#intersects(Rectangle, gnu.trove.TIntProcedure)
    */
   public void intersects(Rectangle r, TIntProcedure ip) {
-    Rectangle r2 = new Rectangle(r.minX, r.minY, r.maxX, r.maxY);  
+    Rectangle r2 = new Rectangle(r.minX, r.minY, r.maxX, r.maxY);
     tree.intersects(r2, new IntProcedure2(ip));
   }
 
@@ -121,21 +122,21 @@ public class RTreeWrapper implements SpatialIndex {
    * @see com.infomatiq.jsi.SpatialIndex#size()
    */
   public int size() {
-    return tree.size();  
+    return tree.size();
   }
-  
+
   /**
    * @see com.infomatiq.jsi.SpatialIndex#getBounds()
    */
   public Rectangle getBounds() {
-    return tree.getBounds(); 
+    return tree.getBounds();
   }
-  
+
   /**
    * @see com.infomatiq.jsi.SpatialIndex#getVersion()
    */
   public String getVersion() {
     return "RTreeWrapper-" + BuildProperties.getVersion();
   }
-  
+
 }

@@ -23,20 +23,18 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.infomatiq.jsi.SpatialIndex;
-
 /**
  * Factory class used to create instances of spatial indexes
  */
 public class SpatialIndexFactory {
-  
-  private final static Logger log = 
-    LoggerFactory.getLogger(SpatialIndexFactory.class);
+
+  private final static Logger log =
+      LoggerFactory.getLogger(SpatialIndexFactory.class);
 
   public static SpatialIndex newInstance(String type) {
     return newInstance(type, null);
   }
-  
+
   public static SpatialIndex newInstance(String type, Properties props) {
     SpatialIndex si = null;
     String className = "com.infomatiq.jsi." + type;
@@ -46,11 +44,11 @@ public class SpatialIndexFactory {
     } catch (ClassNotFoundException cnfe) {
       log.error(cnfe.toString());
     } catch (IllegalAccessException iae) {
-      log.error(iae.toString());    
+      log.error(iae.toString());
     } catch (InstantiationException ie) {
-      log.error(ie.toString());   
+      log.error(ie.toString());
     }
-    
+
     return si;
   }
 }

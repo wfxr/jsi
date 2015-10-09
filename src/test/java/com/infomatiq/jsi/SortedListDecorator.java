@@ -21,37 +21,33 @@ package com.infomatiq.jsi;
 import java.util.Collections;
 import java.util.List;
 
-import com.infomatiq.jsi.Point;
-import com.infomatiq.jsi.Rectangle;
-import com.infomatiq.jsi.SpatialIndex;
-
 /**
  * SortedListDecorator
  */
 public class SortedListDecorator extends ListDecorator {
-   
+
   public SortedListDecorator(SpatialIndex si) {
     super(si);
   }
-   
+
   private List<Integer> sort(List<Integer> l) {
     Collections.sort(l);
-   	return l;
+    return l;
   }
-  
+
   public List<Integer> nearestN(Point p, int maxCount, float furthestDistance) {
     return sort(super.nearestN(p, maxCount, furthestDistance));
   }
-   
+
   public List<Integer> nearest(Point p, float furthestDistance) {
     return sort(super.nearest(p, furthestDistance));
   }
-   
+
   public List<Integer> intersects(Rectangle r) {
     return sort(super.intersects(r));
   }
-  	 	
+
   public List<Integer> contains(Rectangle r) {
-  	return sort(super.contains(r));
+    return sort(super.contains(r));
   }
 }

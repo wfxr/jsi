@@ -21,10 +21,9 @@ package com.infomatiq.jsi;
 import java.util.Properties;
 import java.util.Random;
 
-import com.infomatiq.jsi.Rectangle;
-import com.infomatiq.jsi.rtree.RTree;
-
 import junit.framework.TestCase;
+
+import com.infomatiq.jsi.rtree.RTree;
 
 public class MoveEntriesTest extends TestCase {
 
@@ -36,14 +35,16 @@ public class MoveEntriesTest extends TestCase {
   }
 
   private Rectangle nextRect() {
-    return new Rectangle(r.nextInt(100), r.nextInt(100), r.nextInt(100), r.nextInt(100));
+    return new Rectangle(r.nextInt(100), r.nextInt(100), r.nextInt(100),
+        r.nextInt(100));
   }
 
   public void testMoveEntries() {
     run(4, 50, 4, 10);
   }
 
-  private void run(int minNodeEntries, int maxNodeEntries, int numRects, int numMoves) {
+  private void run(int minNodeEntries, int maxNodeEntries, int numRects,
+      int numMoves) {
     Properties p = new Properties();
     p.setProperty("MinNodeEntries", Integer.toString(minNodeEntries));
     p.setProperty("MaxNodeEntries", Integer.toString(maxNodeEntries));
