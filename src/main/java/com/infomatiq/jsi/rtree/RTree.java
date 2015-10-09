@@ -83,9 +83,9 @@ public class RTree implements SpatialIndex {
   private TIntStack parentsEntry = new TIntArrayStack();
 
   // initialisation
-  private int treeHeight = 1; // leaves are always level 1
-  private int rootNodeId = 0;
-  private int size = 0;
+  int treeHeight = 1; // leaves are always level 1
+  int rootNodeId = 0;
+  int size = 0;
 
   // Enables creation of new nodes
   private int highestUsedNodeId = rootNodeId;

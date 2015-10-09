@@ -19,6 +19,8 @@
 
 package com.infomatiq.jsi.rtree;
 
+import com.infomatiq.jsi.Rectangle;
+
 /**
  * <p>Used by RTree. There are no public methods in this class.</p>
  */
@@ -152,11 +154,53 @@ public class Node {
     return -1;
   }
 
-  boolean isLeaf() {
+  public boolean isLeaf() {
     return (level == 1);
   }
 
   public int getLevel() {
     return level;
   }
+
+  public float getMbrMinX() {
+    return mbrMinX;
+  }
+
+  public float getMbrMinY() {
+    return mbrMinY;
+  }
+
+  public float getMbrMaxX() {
+    return mbrMaxX;
+  }
+
+  public float getMbrMaxY() {
+    return mbrMaxY;
+  }
+
+  public Rectangle getMbb() {
+    return new Rectangle(mbrMinX, mbrMinY, mbrMaxX, mbrMaxY);
+  }
+
+  public float getEntryMbrMinX(int index) {
+    return entriesMinX[index];
+  }
+
+  public float getEntryMbrMinY(int index) {
+    return entriesMinY[index];
+  }
+
+  public float getEntryMbrMaxX(int index) {
+    return entriesMaxX[index];
+  }
+
+  public float getEntryMbrMaxY(int index) {
+    return entriesMaxY[index];
+  }
+
+  public Rectangle getEntryMbb(int index) {
+    return new Rectangle(entriesMinX[index], entriesMinY[index],
+        entriesMaxX[index], entriesMaxY[index]);
+  }
+
 }
