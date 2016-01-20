@@ -42,7 +42,7 @@ import gnu.trove.list.array.TFloatArrayList;
  * </pre>
  * <p>
  * then each parent is kept sorted with respect to it's immediate children. E.g.
- * 00 < 01, 00 < 02, 02 < 05, 02 < 06
+ * 00 &lt; 01, 00 &lt; 02, 02 &lt; 05, 02 &lt; 06
  * </p>
  * <p>
  * This means that the array appears to be sorted, as long as we only ever look
