@@ -35,14 +35,14 @@ import com.infomatiq.jsi.SpatialIndex;
 
 /**
  * <p>This is a lightweight RTree implementation, specifically designed
- * for the following features (in order of importance):
+ * for the following features (in order of importance):</p>
  * <ul>
  * <li>Fast intersection query performance. To achieve this, the RTree
  * uses only main memory to store entries. Obviously this will only improve
  * performance if there is enough physical memory to avoid paging.</li>
  * <li>Low memory requirements.</li>
  * <li>Fast add performance.</li>
- * </ul></p>
+ * </ul>
  *
  * <p>The main reason for the high speed of this RTree implementation is the
  * avoidance of the creation of unnecessary objects, mainly achieved by using
