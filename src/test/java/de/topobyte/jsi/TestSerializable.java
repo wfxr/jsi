@@ -37,7 +37,7 @@ public class TestSerializable {
   * @throws Exception on failure.
   */
   public static void main(String[] args) throws Exception {
-    GenericRTree<Integer> tree = new GenericRTree<Integer>(1, 10);
+    GenericRTree<Integer> tree = new GenericRTree<>(1, 10);
     tree.add(new Rectangle(1, 3, 2, 4), 99);
     tree.add(new Rectangle(1, 3, 2, 4), 88);
     Set<Integer> i = tree.intersects(new Rectangle(-10, -10, 10, 10));

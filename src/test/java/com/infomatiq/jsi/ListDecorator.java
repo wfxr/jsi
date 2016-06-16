@@ -34,7 +34,7 @@ public class ListDecorator {
   }
 
   class AddToListProcedure implements TIntProcedure {
-    private List<Integer> m_list = new ArrayList<Integer>();
+    private List<Integer> m_list = new ArrayList<>();
 
     public boolean execute(int id) {
       m_list.add(new Integer(id));

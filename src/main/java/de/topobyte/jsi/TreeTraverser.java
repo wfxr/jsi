@@ -44,7 +44,7 @@ public class TreeTraverser<T> {
    * Execute the traversal.
    */
   public void traverse() {
-    TraversalAdapter<T> adapter = new TraversalAdapter<T>(tree, traversal);
+    TraversalAdapter<T> adapter = new TraversalAdapter<>(tree, traversal);
     com.infomatiq.jsi.rtree.TreeTraverser traverser = new com.infomatiq.jsi.rtree.TreeTraverser(
         tree.rtree, adapter);
     traverser.traverse();

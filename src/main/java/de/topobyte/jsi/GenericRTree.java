@@ -71,7 +71,7 @@ public class GenericRTree<T> implements GenericSpatialIndex<T>, Externalizable
     rtree = new RTree(minNodes, maxNodes);
     idToThing = new TIntObjectHashMap<>();
     thingToId = new TObjectIntHashMap<>();
-    thingToRect = new HashMap<T, Rectangle>();
+    thingToRect = new HashMap<>();
   }
 
   /**
@@ -129,7 +129,7 @@ public class GenericRTree<T> implements GenericSpatialIndex<T>, Externalizable
   @Override
   public Set<T> contains(Rectangle r)
   {
-    final Set<T> results = new HashSet<T>();
+    final Set<T> results = new HashSet<>();
     contains(r, new TObjectProcedure<T>() {
 
       @Override
@@ -160,7 +160,7 @@ public class GenericRTree<T> implements GenericSpatialIndex<T>, Externalizable
   @Override
   public Set<T> intersects(Rectangle r)
   {
-    final Set<T> results = new HashSet<T>();
+    final Set<T> results = new HashSet<>();
     intersects(r, new TObjectProcedure<T>() {
 
       @Override
@@ -176,7 +176,7 @@ public class GenericRTree<T> implements GenericSpatialIndex<T>, Externalizable
   @Override
   public List<T> intersectionsAsList(Rectangle r)
   {
-    final List<T> results = new ArrayList<T>();
+    final List<T> results = new ArrayList<>();
     intersects(r, new TObjectProcedure<T>() {
 
       @Override
@@ -208,7 +208,7 @@ public class GenericRTree<T> implements GenericSpatialIndex<T>, Externalizable
   @Override
   public Set<T> nearest(Point p, float distance)
   {
-    final Set<T> results = new HashSet<T>();
+    final Set<T> results = new HashSet<>();
     nearest(p, new TObjectProcedure<T>() {
 
       @Override

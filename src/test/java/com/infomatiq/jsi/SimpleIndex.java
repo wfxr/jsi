@@ -37,7 +37,7 @@ import gnu.trove.procedure.TIntProcedure;
  * <p>On the other hand, the add() and delete() methods are very fast :-)</p>
  */
 public class SimpleIndex implements SpatialIndex {
-  TIntObjectHashMap<Rectangle> m_map = new TIntObjectHashMap<Rectangle>();
+  TIntObjectHashMap<Rectangle> m_map = new TIntObjectHashMap<>();
 
   /**
    * Nearest
