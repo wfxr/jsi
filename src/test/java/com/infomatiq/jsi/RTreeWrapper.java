@@ -30,7 +30,7 @@ import com.infomatiq.jsi.rtree.RTree;
  * can be made.
  */
 public class RTreeWrapper implements SpatialIndex {
-  private RTree tree;
+  private RTree tree = new RTree();
 
   class IntProcedure2 implements TIntProcedure {
     private TIntProcedure m_intProcedure = null;
