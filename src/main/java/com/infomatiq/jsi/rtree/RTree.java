@@ -19,12 +19,6 @@
 
 package com.infomatiq.jsi.rtree;
 
-import gnu.trove.list.array.TIntArrayList;
-import gnu.trove.map.hash.TIntObjectHashMap;
-import gnu.trove.procedure.TIntProcedure;
-import gnu.trove.stack.TIntStack;
-import gnu.trove.stack.array.TIntArrayStack;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +26,11 @@ import com.infomatiq.jsi.Point;
 import com.infomatiq.jsi.PriorityQueue;
 import com.infomatiq.jsi.Rectangle;
 import com.infomatiq.jsi.SpatialIndex;
+import com.slimjars.dist.gnu.trove.list.array.TIntArrayList;
+import com.slimjars.dist.gnu.trove.map.hash.TIntObjectHashMap;
+import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
+import com.slimjars.dist.gnu.trove.stack.TIntStack;
+import com.slimjars.dist.gnu.trove.stack.array.TIntArrayStack;
 
 /**
  * <p>This is a lightweight RTree implementation, specifically designed

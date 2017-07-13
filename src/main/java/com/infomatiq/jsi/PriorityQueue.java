@@ -18,8 +18,8 @@
 
 package com.infomatiq.jsi;
 
-import gnu.trove.list.array.TIntArrayList;
-import gnu.trove.list.array.TFloatArrayList;
+import com.slimjars.dist.gnu.trove.list.array.TFloatArrayList;
+import com.slimjars.dist.gnu.trove.list.array.TIntArrayList;
 
 /**
  * <p>

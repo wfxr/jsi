@@ -18,9 +18,8 @@
 
 package com.infomatiq.jsi;
 
-import gnu.trove.procedure.TIntProcedure;
-
 import com.infomatiq.jsi.rtree.RTree;
+import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
 
 /**
  * A completely useless wrapper class for the RTree class.

@@ -16,13 +16,6 @@
 
 package de.topobyte.jsi;
 
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.TObjectIntMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
-import gnu.trove.map.hash.TObjectIntHashMap;
-import gnu.trove.procedure.TIntProcedure;
-import gnu.trove.procedure.TObjectProcedure;
-
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -37,6 +30,12 @@ import java.util.Set;
 import com.infomatiq.jsi.Point;
 import com.infomatiq.jsi.Rectangle;
 import com.infomatiq.jsi.rtree.RTree;
+import com.slimjars.dist.gnu.trove.map.TIntObjectMap;
+import com.slimjars.dist.gnu.trove.map.TObjectIntMap;
+import com.slimjars.dist.gnu.trove.map.hash.TIntObjectHashMap;
+import com.slimjars.dist.gnu.trove.map.hash.TObjectIntHashMap;
+import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
+import com.slimjars.dist.gnu.trove.procedure.TObjectProcedure;
 
 /**
  * An implementation of the GenericSpatialIndex that internally uses the

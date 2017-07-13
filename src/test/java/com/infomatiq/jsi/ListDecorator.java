@@ -18,10 +18,10 @@
 
 package com.infomatiq.jsi;
 
-import gnu.trove.procedure.TIntProcedure;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
 
 /**
  * ListDecorator
@@ -36,7 +36,8 @@ public class ListDecorator {
   class AddToListProcedure implements TIntProcedure {
     private List<Integer> m_list = new ArrayList<>();
 
-    public boolean execute(int id) {
+    @Override
+	public boolean execute(int id) {
       m_list.add(new Integer(id));
       return true;
     }
