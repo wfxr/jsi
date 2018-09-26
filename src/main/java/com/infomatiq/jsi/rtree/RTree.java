@@ -71,11 +71,6 @@ public class RTree implements SpatialIndex {
     private              byte[] entryStatus             = null;
     private              byte[] initialEntryStatus      = null;
 
-    // stacks used to store nodeId and entry index of each node
-    // from the root down to the leaf. Enables fast lookup
-    // of nodes when a split is propagated up the tree.
-    private TIntStack parentsEntry = new TIntArrayStack();
-
     // initialisation
     private int treeHeight = 1; // leaves are always level 1
     private int rootNodeId = 0;
@@ -197,8 +192,9 @@ public class RTree implements SpatialIndex {
         // I1 [Find position for new record] Invoke ChooseLeaf to select a
         // leaf node L in which to place r
         TIntStack parents      = new TIntArrayStack();
-        Node n       = chooseNode(minX, minY, maxX, maxY, level, parents);
-        Node newLeaf = null;
+        TIntStack parentsEntry = new TIntArrayStack();
+        Node      n            = chooseNode(minX, minY, maxX, maxY, level, parents, parentsEntry);
+        Node      newLeaf      = null;
 
         // I2 [Add record to leaf node] If L has room for another entry,
         // install E. Otherwise invoke SplitNode to obtain L and LL containing
@@ -211,7 +207,7 @@ public class RTree implements SpatialIndex {
 
         // I3 [Propagate changes upwards] Invoke AdjustTree on L, also passing LL
         // if a split was performed
-        Node newNode = adjustTree(n, newLeaf, parents);
+        Node newNode = adjustTree(n, newLeaf, parents, parentsEntry);
 
         // I4 [Grow tree taller] If node split propagation caused the root to
         // split, create a new root whose children are the two resulting nodes.
@@ -249,7 +245,7 @@ public class RTree implements SpatialIndex {
         TIntStack parents = new TIntArrayStack();
         parents.push(rootNodeId);
 
-        parentsEntry.clear();
+        TIntStack parentsEntry = new TIntArrayStack();
         parentsEntry.push(-1);
         Node n          = null;
         int  foundIndex = -1; // index of entry to be deleted in leaf
@@ -287,7 +283,7 @@ public class RTree implements SpatialIndex {
 
         if (foundIndex != -1 && n != null) {
             n.deleteEntry(foundIndex);
-            condenseTree(n, parents);
+            condenseTree(n, parents, parentsEntry);
             size--;
         }
 
@@ -346,7 +342,7 @@ public class RTree implements SpatialIndex {
         TIntStack parents = new TIntArrayStack();
         parents.push(rootNodeId);
 
-        parentsEntry.clear();
+        TIntStack parentsEntry = new TIntArrayStack();
         parentsEntry.push(-1);
 
         // TODO: possible shortcut here - could test for intersection with the
@@ -417,8 +413,9 @@ public class RTree implements SpatialIndex {
     // if it could contain an entry closer than the farthest entry
     // currently stored.
     private boolean isNear(Point p, double furthestDistanceSq, Node n, int startIndex) {
-        TIntStack parents = new TIntArrayStack();
-        boolean   near    = false;
+        TIntStack parents      = new TIntArrayStack();
+        TIntStack parentsEntry = new TIntArrayStack();
+        boolean   near         = false;
         for (int i = startIndex; i < n.entryCount; i++) {
             if (Rectangle.distanceSq(n.entriesMinX[i], n.entriesMinY[i],
                                      n.entriesMaxX[i], n.entriesMaxY[i],
@@ -492,7 +489,7 @@ public class RTree implements SpatialIndex {
         TIntStack parents = new TIntArrayStack();
         parents.push(rootNodeId);
 
-        parentsEntry.clear();
+        TIntStack parentsEntry = new TIntArrayStack();
         parentsEntry.push(-1);
 
         nearestNIds.init(count);
@@ -558,7 +555,7 @@ public class RTree implements SpatialIndex {
         TIntStack parents = new TIntArrayStack();
         parents.push(rootNodeId);
 
-        parentsEntry.clear();
+        TIntStack parentsEntry = new TIntArrayStack();
         parentsEntry.push(-1);
 
         // TODO: possible shortcut here - could test for intersection with the
@@ -1107,7 +1104,7 @@ public class RTree implements SpatialIndex {
      * Note that the parent and parentEntry stacks are expected to
      * contain the nodeIds of all parents up to the root.
      */
-    private void condenseTree(Node l, TIntStack parents) {
+    private void condenseTree(Node l, TIntStack parents, TIntStack parentsEntry) {
         // CT1 [Initialize] Set n=l. Set the list of eliminated
         // nodes to be empty.
         Node n           = l;
@@ -1171,10 +1168,9 @@ public class RTree implements SpatialIndex {
      * Used by add(). Chooses a leaf to add the rectangle to.
      */
     private Node chooseNode(double minX, double minY, double maxX, double maxY,
-                            int level, TIntStack parents) {
+                            int level, TIntStack parents, TIntStack parentsEntry) {
         // CL1 [Initialize] Set N to be the root node
         Node n = getNode(rootNodeId);
-        parentsEntry.clear();
 
         // CL2 [Leaf check] If N is a leaf, return N
         while (true) {
@@ -1225,7 +1221,7 @@ public class RTree implements SpatialIndex {
      * Ascend from a leaf node L to the root, adjusting covering rectangles and
      * propagating node splits as necessary.
      */
-    private Node adjustTree(Node n, Node nn, TIntStack parents) {
+    private Node adjustTree(Node n, Node nn, TIntStack parents, TIntStack parentsEntry) {
         // AT1 [Initialize] Set N=L. If L was split previously, set NN to be
         // the resulting second node.
 
