@@ -21,7 +21,7 @@ import java.util.Set;
 
 import com.infomatiq.jsi.Point;
 import com.infomatiq.jsi.Rectangle;
-import com.slimjars.dist.gnu.trove.procedure.TObjectProcedure;
+import gnu.trove.procedure.TObjectProcedure;
 
 /**
  * An interface to a spatial index that stores generic values that occupy a

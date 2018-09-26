@@ -18,7 +18,7 @@
 
 package com.infomatiq.jsi;
 
-import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
+import gnu.trove.procedure.TIntProcedure;
 
 /**
  * An implementation of SpatialIndex that does absolutely nothing.

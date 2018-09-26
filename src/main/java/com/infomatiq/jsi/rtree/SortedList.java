@@ -18,9 +18,9 @@
 
 package com.infomatiq.jsi.rtree;
 
-import com.slimjars.dist.gnu.trove.list.array.TDoubleArrayList;
-import com.slimjars.dist.gnu.trove.list.array.TIntArrayList;
-import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
+import gnu.trove.list.array.TDoubleArrayList;
+import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.procedure.TIntProcedure;
 
 /**
  * <p>

@@ -18,7 +18,7 @@
 
 package com.infomatiq.jsi;
 
-import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
+import gnu.trove.procedure.TIntProcedure;
 
 /**
  * Defines methods that must be implemented by all
