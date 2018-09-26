@@ -18,11 +18,11 @@
 
 package com.infomatiq.jsi;
 
-import com.slimjars.dist.gnu.trove.iterator.TIntObjectIterator;
-import com.slimjars.dist.gnu.trove.list.array.TDoubleArrayList;
-import com.slimjars.dist.gnu.trove.list.array.TIntArrayList;
-import com.slimjars.dist.gnu.trove.map.hash.TIntObjectHashMap;
-import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
+import gnu.trove.iterator.TIntObjectIterator;
+import gnu.trove.list.array.TDoubleArrayList;
+import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.map.hash.TIntObjectHashMap;
+import gnu.trove.procedure.TIntProcedure;
 
 /**
  * SimpleIndex
@@ -43,9 +43,9 @@ public class SimpleIndex implements SpatialIndex {
    * Nearest
    */
   private TIntArrayList nearest(Point p, double furthestDistance) {
-    TIntArrayList ret = new TIntArrayList();
-    double nearestDistance = furthestDistance;
-    TIntObjectIterator<Rectangle> i = m_map.iterator();
+    TIntArrayList                 ret             = new TIntArrayList();
+    double                        nearestDistance = furthestDistance;
+    TIntObjectIterator<Rectangle> i               = m_map.iterator();
     while (i.hasNext()) {
       i.advance();
       int currentId = i.key();
@@ -78,7 +78,7 @@ public class SimpleIndex implements SpatialIndex {
   }
 
   private TIntArrayList nearestN(Point p, int n, double furthestDistance) {
-    TIntArrayList ids = new TIntArrayList();
+    TIntArrayList    ids       = new TIntArrayList();
     TDoubleArrayList distances = new TDoubleArrayList();
 
     TIntObjectIterator<Rectangle> iter = m_map.iterator();

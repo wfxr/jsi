@@ -18,10 +18,10 @@
 
 package com.infomatiq.jsi;
 
+import gnu.trove.procedure.TIntProcedure;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
 
 /**
  * ListDecorator

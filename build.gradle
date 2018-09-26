@@ -6,7 +6,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 if (project.hasProperty("topobyte")) {
     apply from: 'file:///' + System.getProperty("user.home") \
-        + '/.gradle/topobyte.gradle'
+           + '/.gradle/topobyte.gradle'
 }
 
 group = pGroup
@@ -19,16 +19,8 @@ repositories {
 }
 
 dependencies {
-    compile "org.slf4j:slf4j-api:1.6.1"
+    compile group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
 
-    compile 'com.slimjars.trove4j:trove4j-int-object-hash-map:1.0.1'
-    compile 'com.slimjars.trove4j:trove4j-int-array-list:1.0.1'
-    compile 'com.slimjars.trove4j:trove4j-int-array-stack:1.0.1'
-    compile 'com.slimjars.trove4j:trove4j-object-int-hash-map:1.0.1'
-    compile 'com.slimjars.trove4j:trove4j-double-array-list:1.0.1'
-
-    testRuntime "org.slf4j:slf4j-log4j12:1.6.1"
-    testRuntime "log4j:log4j:1.2.16"
     testCompile "junit:junit:4.11"
 }
 

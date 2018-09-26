@@ -18,8 +18,8 @@
 
 package com.infomatiq.jsi;
 
-import com.slimjars.dist.gnu.trove.list.array.TDoubleArrayList;
-import com.slimjars.dist.gnu.trove.list.array.TIntArrayList;
+import gnu.trove.list.array.TDoubleArrayList;
+import gnu.trove.list.array.TIntArrayList;
 
 /**
  * <p>
@@ -70,9 +70,9 @@ public class PriorityQueue {
   public static final boolean SORT_ORDER_ASCENDING = true;
   public static final boolean SORT_ORDER_DESCENDING = false;
 
-  private TIntArrayList values = null;
+  private TIntArrayList    values     = null;
   private TDoubleArrayList priorities = null;
-  private boolean sortOrder = SORT_ORDER_ASCENDING;
+  private boolean          sortOrder  = SORT_ORDER_ASCENDING;
 
   private static boolean INTERNAL_CONSISTENCY_CHECKING = false;
 

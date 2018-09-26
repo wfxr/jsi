@@ -18,9 +18,9 @@
 
 package com.infomatiq.jsi.rtree;
 
-import com.slimjars.dist.gnu.trove.list.array.TDoubleArrayList;
-import com.slimjars.dist.gnu.trove.list.array.TIntArrayList;
-import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
+import gnu.trove.list.array.TDoubleArrayList;
+import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.procedure.TIntProcedure;
 
 /**
  * <p>
@@ -44,9 +44,9 @@ import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
 public class SortedList {
   private static final int DEFAULT_PREFERRED_MAXIMUM_SIZE = 10;
 
-  private int preferredMaximumSize = 1;
-  private TIntArrayList ids = null;
-  private TDoubleArrayList priorities = null;
+  private int              preferredMaximumSize = 1;
+  private TIntArrayList    ids                  = null;
+  private TDoubleArrayList priorities           = null;
 
   public void init(int preferredMaximumSize) {
     this.preferredMaximumSize = preferredMaximumSize;

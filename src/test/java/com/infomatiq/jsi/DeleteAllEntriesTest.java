@@ -21,8 +21,8 @@ package com.infomatiq.jsi;
 import java.util.Random;
 
 import com.infomatiq.jsi.rtree.RTree;
-import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
 
+import gnu.trove.procedure.TIntProcedure;
 import junit.framework.TestCase;
 
 public class DeleteAllEntriesTest extends TestCase {
