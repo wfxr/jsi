@@ -28,24 +28,24 @@ import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
 public class NullIndex implements SpatialIndex {
 
   /**
-   * @see com.infomatiq.jsi.SpatialIndex#nearest(Point, gnu.trove.TIntProcedure, float)
+   * @see com.infomatiq.jsi.SpatialIndex#nearest(Point, gnu.trove.TIntProcedure, double)
    */
   @Override
-  public void nearest(Point p, TIntProcedure v, float distance) {
+  public void nearest(Point p, TIntProcedure v, double distance) {
   }
 
   /**
-   * @see com.infomatiq.jsi.SpatialIndex#nearestN(Point, gnu.trove.TIntProcedure, int, float)
+   * @see com.infomatiq.jsi.SpatialIndex#nearestN(Point, gnu.trove.TIntProcedure, int, double)
    */
   @Override
-  public void nearestN(Point p, TIntProcedure v, int n, float distance) {
+  public void nearestN(Point p, TIntProcedure v, int n, double distance) {
   }
 
   /**
-   * @see com.infomatiq.jsi.SpatialIndex#nearestNUnsorted(Point, gnu.trove.TIntProcedure, int, float)
+   * @see com.infomatiq.jsi.SpatialIndex#nearestNUnsorted(Point, gnu.trove.TIntProcedure, int, double)
    */
   @Override
-  public void nearestNUnsorted(Point p, TIntProcedure v, int n, float distance) {
+  public void nearestNUnsorted(Point p, TIntProcedure v, int n, double distance) {
   }
 
   /**

@@ -19,7 +19,7 @@
 package com.infomatiq.jsi;
 
 import com.slimjars.dist.gnu.trove.iterator.TIntObjectIterator;
-import com.slimjars.dist.gnu.trove.list.array.TFloatArrayList;
+import com.slimjars.dist.gnu.trove.list.array.TDoubleArrayList;
 import com.slimjars.dist.gnu.trove.list.array.TIntArrayList;
 import com.slimjars.dist.gnu.trove.map.hash.TIntObjectHashMap;
 import com.slimjars.dist.gnu.trove.procedure.TIntProcedure;
@@ -42,15 +42,15 @@ public class SimpleIndex implements SpatialIndex {
   /**
    * Nearest
    */
-  private TIntArrayList nearest(Point p, float furthestDistance) {
+  private TIntArrayList nearest(Point p, double furthestDistance) {
     TIntArrayList ret = new TIntArrayList();
-    float nearestDistance = furthestDistance;
+    double nearestDistance = furthestDistance;
     TIntObjectIterator<Rectangle> i = m_map.iterator();
     while (i.hasNext()) {
       i.advance();
       int currentId = i.key();
       Rectangle currentRectangle = i.value();
-      float distance = currentRectangle.distance(p);
+      double distance = currentRectangle.distance(p);
       if (distance < nearestDistance) {
         nearestDistance = distance;
         ret.clear();
@@ -63,10 +63,10 @@ public class SimpleIndex implements SpatialIndex {
   }
 
   /**
-   * @see com.infomatiq.jsi.SpatialIndex#nearest(Point, gnu.trove.TIntProcedure, float)
+   * @see com.infomatiq.jsi.SpatialIndex#nearest(Point, gnu.trove.TIntProcedure, double)
    */
   @Override
-  public void nearest(Point p, final TIntProcedure v, float furthestDistance) {
+  public void nearest(Point p, final TIntProcedure v, double furthestDistance) {
     TIntArrayList nearestList = nearest(p, furthestDistance);
     nearestList.forEach(new TIntProcedure() {
       @Override
@@ -77,16 +77,16 @@ public class SimpleIndex implements SpatialIndex {
     });
   }
 
-  private TIntArrayList nearestN(Point p, int n, float furthestDistance) {
+  private TIntArrayList nearestN(Point p, int n, double furthestDistance) {
     TIntArrayList ids = new TIntArrayList();
-    TFloatArrayList distances = new TFloatArrayList();
+    TDoubleArrayList distances = new TDoubleArrayList();
 
     TIntObjectIterator<Rectangle> iter = m_map.iterator();
     while (iter.hasNext()) {
       iter.advance();
       int currentId = iter.key();
       Rectangle currentRectangle = iter.value();
-      float distance = currentRectangle.distance(p);
+      double distance = currentRectangle.distance(p);
 
       if (distance <= furthestDistance) {
         int insertionIndex = 0;
@@ -104,7 +104,7 @@ public class SimpleIndex implements SpatialIndex {
           // would leave at least N entries.
           int maxDistanceCount = 1;
           int currentIndex = distances.size() - 1;
-          float maxDistance = distances.get(currentIndex);
+          double maxDistance = distances.get(currentIndex);
           while (currentIndex - 1 >= 0
               && distances.get(currentIndex - 1) == maxDistance) {
             currentIndex--;
@@ -122,11 +122,11 @@ public class SimpleIndex implements SpatialIndex {
   }
 
   /**
-   * @see com.infomatiq.jsi.SpatialIndex#nearestN(Point, gnu.trove.TIntProcedure, int, float)
+   * @see com.infomatiq.jsi.SpatialIndex#nearestN(Point, gnu.trove.TIntProcedure, int, double)
    */
   @Override
   public void nearestN(Point p, final TIntProcedure v, int n,
-      float furthestDistance) {
+      double furthestDistance) {
     TIntArrayList nearestList = nearestN(p, n, furthestDistance);
     nearestList.forEach(new TIntProcedure() {
       @Override
@@ -140,11 +140,11 @@ public class SimpleIndex implements SpatialIndex {
   /**
    * Same as nearestN
    * 
-   * @see com.infomatiq.jsi.SpatialIndex#nearestNUnsorted(Point, gnu.trove.TIntProcedure, int, float)
+   * @see com.infomatiq.jsi.SpatialIndex#nearestNUnsorted(Point, gnu.trove.TIntProcedure, int, double)
    */
   @Override
   public void nearestNUnsorted(Point p, final TIntProcedure v, int n,
-      float furthestDistance) {
+      double furthestDistance) {
     nearestN(p, v, n, furthestDistance);
   }
 

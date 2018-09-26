@@ -1,4 +1,4 @@
-//   PerformanceTest.java
+//   PerformanceBench.java
 //   Java Spatial Index Library
 //   Copyright (C) 2002-2005 Infomatiq Limited.
 //  
@@ -24,19 +24,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * PerformanceTest
+ * PerformanceBench
  * 
  * Generates results used for comparing the performance of the Java Spatial
  * Index library against alternative implementations.
  */
-public class PerformanceTest extends TestCase
+public class PerformanceBench extends TestCase
 {
 
   private static final Logger log = LoggerFactory
-      .getLogger(PerformanceTest.class);
+      .getLogger(PerformanceBench.class);
   private Script script = new Script();
 
-  public PerformanceTest(String s)
+  public PerformanceBench(String s)
   {
     super(s);
   }

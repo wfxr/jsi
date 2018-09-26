@@ -190,7 +190,7 @@ public class GenericRTree<T> implements GenericSpatialIndex<T>, Externalizable
 
   @Override
   public void nearest(Point p, final TObjectProcedure<T> procedure,
-      float distance)
+      double distance)
   {
     rtree.nearest(p, new TIntProcedure() {
 
@@ -205,7 +205,7 @@ public class GenericRTree<T> implements GenericSpatialIndex<T>, Externalizable
   }
 
   @Override
-  public Set<T> nearest(Point p, float distance)
+  public Set<T> nearest(Point p, double distance)
   {
     final Set<T> results = new HashSet<>();
     nearest(p, new TObjectProcedure<T>() {
@@ -245,10 +245,10 @@ public class GenericRTree<T> implements GenericSpatialIndex<T>, Externalizable
       Rectangle rect = thingToRect.get(thing);
       oo.writeInt(i);
       oo.writeObject(thing);
-      oo.writeFloat(rect.minX);
-      oo.writeFloat(rect.maxX);
-      oo.writeFloat(rect.minY);
-      oo.writeFloat(rect.maxY);
+      oo.writeDouble(rect.minX);
+      oo.writeDouble(rect.maxX);
+      oo.writeDouble(rect.minY);
+      oo.writeDouble(rect.maxY);
     }
   }
 
@@ -262,10 +262,10 @@ public class GenericRTree<T> implements GenericSpatialIndex<T>, Externalizable
       int id = oi.readInt();
       // unchecked cast not avoidable
       T thing = (T) oi.readObject();
-      float minX = oi.readFloat();
-      float maxX = oi.readFloat();
-      float minY = oi.readFloat();
-      float maxY = oi.readFloat();
+      double minX = oi.readDouble();
+      double maxX = oi.readDouble();
+      double minY = oi.readDouble();
+      double maxY = oi.readDouble();
       Rectangle r = new Rectangle(minX, minY, maxX, maxY);
       add(r, thing, id);
     }

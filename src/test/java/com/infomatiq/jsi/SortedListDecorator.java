@@ -36,12 +36,12 @@ public class SortedListDecorator extends ListDecorator {
   }
 
   @Override
-  public List<Integer> nearestN(Point p, int maxCount, float furthestDistance) {
+  public List<Integer> nearestN(Point p, int maxCount, double furthestDistance) {
     return sort(super.nearestN(p, maxCount, furthestDistance));
   }
 
   @Override
-  public List<Integer> nearest(Point p, float furthestDistance) {
+  public List<Integer> nearest(Point p, double furthestDistance) {
     return sort(super.nearest(p, furthestDistance));
   }
 

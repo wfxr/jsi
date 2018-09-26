@@ -121,7 +121,7 @@ public interface GenericSpatialIndex<T>
    * @param distance
    *            the maximum distance from <code>p</code> of elements.
    */
-  void nearest(Point p, TObjectProcedure<T> procedure, float distance);
+  void nearest(Point p, TObjectProcedure<T> procedure, double distance);
 
   /**
    * Acquire a set of all elements that are in less or equal distance of
@@ -134,7 +134,7 @@ public interface GenericSpatialIndex<T>
    * @return the set all elements found in less distance than
    *         <code>distance</code>.
    */
-  Set<T> nearest(Point p, float distance);
+  Set<T> nearest(Point p, double distance);
 
   /**
    * Returns the number of entries in this index.
