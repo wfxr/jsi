@@ -34,7 +34,7 @@ public interface SpatialIndex {
    *           The result of adding more than one rectangle with
    *           the same ID is undefined.
    */
-  public void add(Rectangle r, int id);
+  void add(Rectangle r, int id);
 
   /**
    * Deletes a rectangle from the spatial index
@@ -47,7 +47,7 @@ public interface SpatialIndex {
    *         false if the rectangle was not found, or the
    *               rectangle was found but with a different ID
    */
-  public boolean delete(Rectangle r, int id);
+  boolean delete(Rectangle r, int id);
 
   /**
    * Finds the nearest rectangles to the passed rectangle and calls
@@ -71,7 +71,7 @@ public interface SpatialIndex {
    * Use Double.POSITIVE_INFINITY to guarantee that the nearest rectangle is found,
    * no matter how far away, although this will slow down the algorithm.
    */
-  public void nearest(Point p, TIntProcedure v, double furthestDistance);
+  void nearest(Point p, TIntProcedure v, double furthestDistance);
 
   /**
    * Finds the N nearest rectangles to the passed rectangle, and calls
@@ -99,13 +99,13 @@ public interface SpatialIndex {
    * Use Double.POSITIVE_INFINITY to guarantee that the nearest rectangle is found,
    * no matter how far away, although this will slow down the algorithm.
    */
-  public void nearestN(Point p, TIntProcedure v, int n, double distance);
+  void nearestN(Point p, TIntProcedure v, int n, double distance);
 
   /**
    * Same as nearestN, except the found rectangles are not returned
    * in sorted order. This will be faster, if sorting is not required
    */
-  public void nearestNUnsorted(Point p, TIntProcedure v, int n, double distance);
+  void nearestNUnsorted(Point p, TIntProcedure v, int n, double distance);
 
   /**
    * Finds all rectangles that intersect the passed rectangle.
@@ -116,7 +116,7 @@ public interface SpatialIndex {
    * @param ip The IntProcedure whose execute() method is is called
    *           for each intersecting rectangle.
    */
-  public void intersects(Rectangle r, TIntProcedure ip);
+  void intersects(Rectangle r, TIntProcedure ip);
 
   /**
    * Finds all rectangles contained by the passed rectangle.
@@ -127,17 +127,17 @@ public interface SpatialIndex {
    * @param ip The procedure whose visit() method is is called
    *           for each contained rectangle.
    */
-  public void contains(Rectangle r, TIntProcedure ip);
+  void contains(Rectangle r, TIntProcedure ip);
 
   /**
    * Returns the number of entries in the spatial index
    */
-  public int size();
+  int size();
 
   /**
    * Returns the bounds of all the entries in the spatial index,
    * or null if there are no entries.
    */
-  public Rectangle getBounds();
+  Rectangle getBounds();
 
 }
