@@ -1,11 +1,9 @@
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
-}
-
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 if (project.hasProperty("topobyte")) {
     apply from: 'file:///' + System.getProperty("user.home") \
         + '/.gradle/topobyte.gradle'
@@ -13,7 +11,6 @@ if (project.hasProperty("topobyte")) {
 
 group = pGroup
 version = pVersion
-
 repositories {
     maven {
         url 'http://mvn.slimjars.com'
@@ -42,4 +39,8 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 artifacts {
     archives sourcesJar
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.10'
 }
