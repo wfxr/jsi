@@ -45,10 +45,7 @@ public class TreeTraverser {
    * Execute the traversal.
    */
   public void traverse() {
-    int rootId = rtree.rootNodeId;
-    Node root = rtree.getNode(rootId);
-
-    traverse(root, 0);
+    traverse(rtree.getRoot(), 0);
   }
 
   private void traverse(Node node, int level) {

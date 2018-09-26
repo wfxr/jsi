@@ -126,8 +126,8 @@ public class Node {
   /**
    * eliminate null entries, move all entries to the start of the source node
    */
-  void reorganize(RTree rtree) {
-    int countdownIndex = rtree.maxNodeEntries - 1;
+  void reorganize(int maxNodeEntries) {
+    int countdownIndex = maxNodeEntries - 1;
     for (int index = 0; index < entryCount; index++) {
       if (ids[index] == -1) {
         while (ids[countdownIndex] == -1 && countdownIndex > index) {
