@@ -366,6 +366,7 @@ public class RTree implements SpatialIndex {
     private boolean isNear(Point p, double furthestDistanceSq, Node node, int startIndex) {
         TIntStack parents      = new TIntArrayStack();
         TIntStack parentsEntry = new TIntArrayStack();
+        parentsEntry.push(-1);
         boolean   near         = false;
         for (int i = startIndex; i < node.entryCount; i++) {
             if (Rectangle.distanceSq(node.minX[i], node.minY[i],
