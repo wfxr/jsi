@@ -1,19 +1,22 @@
+def getVersion = { ->
+    def p = 'git describe --tags'.execute(); p.waitFor()
+    def version = p.exitValue() == 0 ? p.text.trim() : '0.0.0'
+    def dirty = 'git status -s'.execute().text.trim()
+    return dirty ? "${version}-SNAPSHOT" : version
+}
+
+group 'com.github.wfxr'
+version getVersion()
+
+repositories {
+    mavenCentral()
+}
+
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'maven'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-if (project.hasProperty("topobyte")) {
-    apply from: 'file:///' + System.getProperty("user.home") \
-        + '/.gradle/topobyte.gradle'
-}
-
-group = pGroup
-version = pVersion
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     compile "org.slf4j:slf4j-api:1.6.1"
