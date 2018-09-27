@@ -22,49 +22,49 @@ package com.infomatiq.jsi;
  * Currently hardcoded to 2 dimensions, but could be extended.
  */
 public class Point {
-  /**
-   * The (x, y) coordinates of the point.
-   */
-  public double x, y;
+    /**
+     * The (x, y) coordinates of the point.
+     */
+    public double x, y;
 
-  /**
-   * Constructor.
-   *
-   * @param x The x coordinate of the point
-   * @param y The y coordinate of the point
-   */
-  public Point(double x, double y) {
-    this.x = x;
-    this.y = y;
-  }
+    /**
+     * Constructor.
+     *
+     * @param x The x coordinate of the point
+     * @param y The y coordinate of the point
+     */
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 
-  /**
-   * Copy from another point into this one
-   */
-  public void set(Point other) {
-    x = other.x;
-    y = other.y;
-  }
+    /**
+     * Copy from another point into this one
+     */
+    public void set(Point other) {
+        x = other.x;
+        y = other.y;
+    }
 
-  /**
-   * Print as a string in format "(x, y)"
-   */
-  @Override
-  public String toString() {
-    return "(" + x + ", " + y + ")";
-  }
+    /**
+     * Print as a string in format "(x, y)"
+     */
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
 
-  /**
-   * @return X coordinate rounded to an int
-   */
-  public long xInt() {
-    return Math.round(x);
-  }
+    /**
+     * @return X coordinate rounded to an int
+     */
+    public long xInt() {
+        return Math.round(x);
+    }
 
-  /**
-   * @return Y coordinate rounded to an int
-   */
-  public long yInt() {
-    return Math.round(y);
-  }
+    /**
+     * @return Y coordinate rounded to an int
+     */
+    public long yInt() {
+        return Math.round(y);
+    }
 }

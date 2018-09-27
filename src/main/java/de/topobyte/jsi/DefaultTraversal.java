@@ -19,25 +19,19 @@ package de.topobyte.jsi;
 import com.infomatiq.jsi.Rectangle;
 
 /**
+ * @param <T> element type.
  * @author Sebastian Kuerten (sebastian@topobyte.de)
- * 
- * @param <T>
- *            element type.
- * 
  */
-public class DefaultTraversal<T> implements Traversal<T>
-{
+public class DefaultTraversal<T> implements Traversal<T> {
 
-  @Override
-  public void element(Rectangle rectangle, T element)
-  {
-    // NOP
-  }
+    @Override
+    public void element(Rectangle rectangle, T element) {
+        // NOP
+    }
 
-  @Override
-  public void node(Rectangle rectangle)
-  {
-    // NOP
-  }
+    @Override
+    public void node(Rectangle rectangle) {
+        // NOP
+    }
 
 }

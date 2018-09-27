@@ -17,37 +17,33 @@
 package de.topobyte.jsi;
 
 /**
+ * @param <T> element type
  * @author Sebastian Kuerten (sebastian@topobyte.de)
- * 
- * @param <T>
- *            element type
- * 
  */
 public class TreeTraverser<T> {
 
-  private Traversal<T> traversal;
+    private Traversal<T> traversal;
 
-  private GenericRTree<T> tree;
+    private GenericRTree<T> tree;
 
-  /**
-   * Create a new Traverser for the denoted tree.
-   * 
-   * @param tree
-   *            the tree to traverse.
-   */
-  public TreeTraverser(GenericRTree<T> tree, Traversal<T> traversal) {
-    this.tree = tree;
-    this.traversal = traversal;
-  }
+    /**
+     * Create a new Traverser for the denoted tree.
+     *
+     * @param tree the tree to traverse.
+     */
+    public TreeTraverser(GenericRTree<T> tree, Traversal<T> traversal) {
+        this.tree = tree;
+        this.traversal = traversal;
+    }
 
-  /**
-   * Execute the traversal.
-   */
-  public void traverse() {
-    TraversalAdapter<T> adapter = new TraversalAdapter<>(tree, traversal);
-    com.infomatiq.jsi.rtree.TreeTraverser traverser = new com.infomatiq.jsi.rtree.TreeTraverser(
-        tree.rtree, adapter);
-    traverser.traverse();
-  }
+    /**
+     * Execute the traversal.
+     */
+    public void traverse() {
+        TraversalAdapter<T> adapter = new TraversalAdapter<>(tree, traversal);
+        com.infomatiq.jsi.rtree.TreeTraverser traverser = new com.infomatiq.jsi.rtree.TreeTraverser(
+                tree.rtree, adapter);
+        traverser.traverse();
+    }
 
 }

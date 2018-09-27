@@ -27,70 +27,70 @@ import gnu.trove.procedure.TIntProcedure;
  */
 public class NullIndex implements SpatialIndex {
 
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#nearest(Point, gnu.trove.TIntProcedure, double)
-   */
-  @Override
-  public void nearest(Point p, TIntProcedure v, double distance) {
-  }
+    /**
+     * @see com.infomatiq.jsi.SpatialIndex#nearest(Point, gnu.trove.TIntProcedure, double)
+     */
+    @Override
+    public void nearest(Point p, TIntProcedure v, double distance) {
+    }
 
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#nearestN(Point, gnu.trove.TIntProcedure, int, double)
-   */
-  @Override
-  public void nearestN(Point p, TIntProcedure v, int n, double distance) {
-  }
+    /**
+     * @see com.infomatiq.jsi.SpatialIndex#nearestN(Point, gnu.trove.TIntProcedure, int, double)
+     */
+    @Override
+    public void nearestN(Point p, TIntProcedure v, int n, double distance) {
+    }
 
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#nearestNUnsorted(Point, gnu.trove.TIntProcedure, int, double)
-   */
-  @Override
-  public void nearestNUnsorted(Point p, TIntProcedure v, int n, double distance) {
-  }
+    /**
+     * @see com.infomatiq.jsi.SpatialIndex#nearestNUnsorted(Point, gnu.trove.TIntProcedure, int, double)
+     */
+    @Override
+    public void nearestNUnsorted(Point p, TIntProcedure v, int n, double distance) {
+    }
 
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#intersects(Rectangle, gnu.trove.TIntProcedure)
-   */
-  @Override
-  public void intersects(Rectangle r, TIntProcedure ip) {
-  }
+    /**
+     * @see com.infomatiq.jsi.SpatialIndex#intersects(Rectangle, gnu.trove.TIntProcedure)
+     */
+    @Override
+    public void intersects(Rectangle r, TIntProcedure ip) {
+    }
 
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#contains(Rectangle, gnu.trove.TIntProcedure)
-   */
-  @Override
-  public void contains(Rectangle r, TIntProcedure ip) {
-  }
+    /**
+     * @see com.infomatiq.jsi.SpatialIndex#contains(Rectangle, gnu.trove.TIntProcedure)
+     */
+    @Override
+    public void contains(Rectangle r, TIntProcedure ip) {
+    }
 
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#add(Rectangle, int)
-   */
-  @Override
-  public void add(Rectangle r, int id) {
-  }
+    /**
+     * @see com.infomatiq.jsi.SpatialIndex#add(Rectangle, int)
+     */
+    @Override
+    public void add(Rectangle r, int id) {
+    }
 
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#delete(Rectangle, int)
-   */
-  @Override
-  public boolean delete(Rectangle r, int id) {
-    return false;
-  }
+    /**
+     * @see com.infomatiq.jsi.SpatialIndex#delete(Rectangle, int)
+     */
+    @Override
+    public boolean delete(Rectangle r, int id) {
+        return false;
+    }
 
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#size()
-   */
-  @Override
-  public int size() {
-    return 0;
-  }
+    /**
+     * @see com.infomatiq.jsi.SpatialIndex#size()
+     */
+    @Override
+    public int size() {
+        return 0;
+    }
 
-  /**
-   * @see com.infomatiq.jsi.SpatialIndex#getBounds()
-   */
-  @Override
-  public Rectangle getBounds() {
-    return null;
-  }
+    /**
+     * @see com.infomatiq.jsi.SpatialIndex#getBounds()
+     */
+    @Override
+    public Rectangle getBounds() {
+        return null;
+    }
 
 }

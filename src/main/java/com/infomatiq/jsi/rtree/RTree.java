@@ -49,17 +49,15 @@ public class RTree implements SpatialIndex {
     // parameters of the tree
     private final static int DEFAULT_MAX_NODE_ENTRIES = 50;
     private final static int DEFAULT_MIN_NODE_ENTRIES = 20;
+    // used to mark the status of entries during a node split
+    private final static int    ENTRY_STATUS_ASSIGNED   = 0;
+    private final static int    ENTRY_STATUS_UNASSIGNED = 1;
     private              int maxNodeEntries;
     private              int minNodeEntries;
-
     // map of nodeId -> node object
     // TODO eliminate this map - it should not be needed. Nodes
     // can be found by traversing the tree.
     private TIntObjectHashMap<Node> nodeMap = new TIntObjectHashMap<>();
-
-    // used to mark the status of entries during a node split
-    private final static int    ENTRY_STATUS_ASSIGNED   = 0;
-    private final static int    ENTRY_STATUS_UNASSIGNED = 1;
     private              byte[] entryStatus             = null;
     private              byte[] initialEntryStatus      = null;
 

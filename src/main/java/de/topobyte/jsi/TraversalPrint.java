@@ -19,29 +19,24 @@ package de.topobyte.jsi;
 import com.infomatiq.jsi.Rectangle;
 
 /**
- * @author Sebastian Kuerten (sebastian@topobyte.de)
- * 
- * @param <T>
- *            element type
- * 
+ * @param <T> element type
+ *            <p>
  *            A tree traversal that simply prints out information about each
  *            node or element encountered.
+ * @author Sebastian Kuerten (sebastian@topobyte.de)
  */
-public class TraversalPrint<T> implements Traversal<T>
-{
+public class TraversalPrint<T> implements Traversal<T> {
 
-  @Override
-  public void element(Rectangle rectangle, T element)
-  {
-    System.out.println(String.format("%s %s", element.toString(),
-        rectangle.toString()));
-  }
+    @Override
+    public void element(Rectangle rectangle, T element) {
+        System.out.println(String.format("%s %s", element.toString(),
+                                         rectangle.toString()));
+    }
 
-  @Override
-  public void node(Rectangle rectangle)
-  {
-    System.out
-        .println(String.format("inner node: %s", rectangle.toString()));
-  }
+    @Override
+    public void node(Rectangle rectangle) {
+        System.out
+                .println(String.format("inner node: %s", rectangle.toString()));
+    }
 
 }

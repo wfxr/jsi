@@ -18,50 +18,49 @@
 
 package com.infomatiq.jsi;
 
-import java.util.Random;
-
+import com.infomatiq.jsi.rtree.RTree;
 import junit.framework.TestCase;
 
-import com.infomatiq.jsi.rtree.RTree;
+import java.util.Random;
 
 public class MoveEntriesTest extends TestCase {
 
-  Random r = new Random();
+    Random r = new Random();
 
-  public MoveEntriesTest(String name) {
-    super(name);
-    r.setSeed(0);
-  }
-
-  private Rectangle nextRect() {
-    return new Rectangle(r.nextInt(100), r.nextInt(100), r.nextInt(100),
-        r.nextInt(100));
-  }
-
-  public void testMoveEntries() {
-    run(4, 50, 4, 10);
-  }
-
-  private void run(int minNodeEntries, int maxNodeEntries, int numRects,
-      int numMoves) {
-    RTree rtree = new RTree(minNodeEntries, maxNodeEntries);
-
-    Rectangle[] rects = new Rectangle[numRects];
-
-    // first add the rects
-    for (int i = 0; i < numRects; i++) {
-      rects[i] = nextRect();
-      rtree.add(rects[i], i);
+    public MoveEntriesTest(String name) {
+        super(name);
+        r.setSeed(0);
     }
 
-    // now move each one in turn
-    for (int move = 0; move < numMoves; move++) {
-      for (int i = 0; i < numRects; i++) {
-        rtree.delete(rects[i], i);
-        rects[i].set(nextRect());
-        rtree.add(rects[i], i);
-        assertTrue(rtree.checkConsistency());
-      }
+    private Rectangle nextRect() {
+        return new Rectangle(r.nextInt(100), r.nextInt(100), r.nextInt(100),
+                             r.nextInt(100));
     }
-  }
+
+    public void testMoveEntries() {
+        run(4, 50, 4, 10);
+    }
+
+    private void run(int minNodeEntries, int maxNodeEntries, int numRects,
+                     int numMoves) {
+        RTree rtree = new RTree(minNodeEntries, maxNodeEntries);
+
+        Rectangle[] rects = new Rectangle[numRects];
+
+        // first add the rects
+        for (int i = 0; i < numRects; i++) {
+            rects[i] = nextRect();
+            rtree.add(rects[i], i);
+        }
+
+        // now move each one in turn
+        for (int move = 0; move < numMoves; move++) {
+            for (int i = 0; i < numRects; i++) {
+                rtree.delete(rects[i], i);
+                rects[i].set(nextRect());
+                rtree.add(rects[i], i);
+                assertTrue(rtree.checkConsistency());
+            }
+        }
+    }
 }

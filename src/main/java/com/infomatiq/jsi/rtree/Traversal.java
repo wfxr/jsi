@@ -20,26 +20,22 @@ import com.infomatiq.jsi.Rectangle;
 
 /**
  * @author Sebastian Kuerten (sebastian@topobyte.de)
- * 
  */
 public interface Traversal {
 
-  /**
-   * Method gets called for each element contained in the tree.
-   * 
-   * @param rectangle
-   *            the minimal bounding box of the element.
-   * @param nodeId
-   *            the id of the element.
-   */
-  public void element(Rectangle rectangle, int nodeId);
+    /**
+     * Method gets called for each element contained in the tree.
+     *
+     * @param rectangle the minimal bounding box of the element.
+     * @param nodeId    the id of the element.
+     */
+    public void element(Rectangle rectangle, int nodeId);
 
-  /**
-   * Method gets called for each inner node in the tree.
-   * 
-   * @param rectangle
-   *            the minimal bounding box of the node.
-   */
-  public void node(Rectangle rectangle);
+    /**
+     * Method gets called for each inner node in the tree.
+     *
+     * @param rectangle the minimal bounding box of the node.
+     */
+    public void node(Rectangle rectangle);
 
 }

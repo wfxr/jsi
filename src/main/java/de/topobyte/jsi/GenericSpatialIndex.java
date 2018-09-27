@@ -16,131 +16,112 @@
 
 package de.topobyte.jsi;
 
-import java.util.List;
-import java.util.Set;
-
 import com.infomatiq.jsi.Point;
 import com.infomatiq.jsi.Rectangle;
 import gnu.trove.procedure.TObjectProcedure;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * An interface to a spatial index that stores generic values that occupy a
  * rectangular area.
- * 
+ *
+ * @param <T> the type of the elements to be saved in this index.
  * @author Sebastian Kuerten (sebastian@topobyte.de)
- * 
- * @param <T>
- *            the type of the elements to be saved in this index.
  */
-public interface GenericSpatialIndex<T>
-{
+public interface GenericSpatialIndex<T> {
 
-  /**
-   * Add <code>thing</code> to this index with place-occupation specified by
-   * <code>r</code>.
-   * 
-   * @param r
-   *            the element's bounding box
-   * @param thing
-   *            the element to add.
-   */
-  void add(Rectangle r, T thing);
+    /**
+     * Add <code>thing</code> to this index with place-occupation specified by
+     * <code>r</code>.
+     *
+     * @param r     the element's bounding box
+     * @param thing the element to add.
+     */
+    void add(Rectangle r, T thing);
 
-  /**
-   * Calls <code>procedure</code> on each element that is contained in the
-   * given rectangle <code>r</code>.
-   * 
-   * @param r
-   *            the rectangle to query for contained elements.
-   * @param procedure
-   *            the procedure to call on each element.
-   */
-  void contains(Rectangle r, TObjectProcedure<T> procedure);
+    /**
+     * Calls <code>procedure</code> on each element that is contained in the
+     * given rectangle <code>r</code>.
+     *
+     * @param r         the rectangle to query for contained elements.
+     * @param procedure the procedure to call on each element.
+     */
+    void contains(Rectangle r, TObjectProcedure<T> procedure);
 
-  /**
-   * Acquire a set of all elements contained in the given rectangle
-   * <code>r</code>.
-   * 
-   * @param r
-   *            the rectangle to query for contained elements.
-   * @return the set of all elements contained in <code>r</code>.
-   */
-  Set<T> contains(Rectangle r);
+    /**
+     * Acquire a set of all elements contained in the given rectangle
+     * <code>r</code>.
+     *
+     * @param r the rectangle to query for contained elements.
+     * @return the set of all elements contained in <code>r</code>.
+     */
+    Set<T> contains(Rectangle r);
 
-  /**
-   * Remove element <code>thing</code> from spatial index. The associated
-   * rectangle <code>r</code> has to be provided.
-   * 
-   * @param r
-   *            the element's bounding box.
-   * @param thing
-   *            the element to remove.
-   * @return whether deletion has been successful.
-   */
-  boolean delete(Rectangle r, T thing);
+    /**
+     * Remove element <code>thing</code> from spatial index. The associated
+     * rectangle <code>r</code> has to be provided.
+     *
+     * @param r     the element's bounding box.
+     * @param thing the element to remove.
+     * @return whether deletion has been successful.
+     */
+    boolean delete(Rectangle r, T thing);
 
-  /**
-   * Calls <code>procedure</code> on each element that intersects the given
-   * rectangle <code>r</code>.
-   * 
-   * @param r
-   *            the rectangle to query for intersecting elements.
-   * @param procedure
-   *            the procedure to call on each element.
-   */
-  void intersects(Rectangle r, TObjectProcedure<T> procedure);
+    /**
+     * Calls <code>procedure</code> on each element that intersects the given
+     * rectangle <code>r</code>.
+     *
+     * @param r         the rectangle to query for intersecting elements.
+     * @param procedure the procedure to call on each element.
+     */
+    void intersects(Rectangle r, TObjectProcedure<T> procedure);
 
-  /**
-   * Acquire a set of all elements intersecting the given rectangle
-   * <code>r</code>.
-   * 
-   * @param r
-   *            the rectangle to query for intersecting elements.
-   * @return the set of all elements intersecting <code>r</code>.
-   */
-  Set<T> intersects(Rectangle r);
+    /**
+     * Acquire a set of all elements intersecting the given rectangle
+     * <code>r</code>.
+     *
+     * @param r the rectangle to query for intersecting elements.
+     * @return the set of all elements intersecting <code>r</code>.
+     */
+    Set<T> intersects(Rectangle r);
 
-  /**
-   * Acquire a list of all elements intersecting the given rectangle
-   * <code>r</code>.
-   * 
-   * @param r
-   *            the rectangle to query for intersecting elements.
-   * @return the list of all element intersectin <code>r</code>
-   */
-  List<T> intersectionsAsList(Rectangle r);
+    /**
+     * Acquire a list of all elements intersecting the given rectangle
+     * <code>r</code>.
+     *
+     * @param r the rectangle to query for intersecting elements.
+     * @return the list of all element intersectin <code>r</code>
+     */
+    List<T> intersectionsAsList(Rectangle r);
 
-  /**
-   * Execute <code>procedure</code> on all elements that are in less or equal
-   * distance of <code>p</code> than <code>distance</code>.
-   * 
-   * @param p
-   *            the point from where to measure distance.
-   * @param procedure
-   *            the procedure to call on each element.
-   * @param distance
-   *            the maximum distance from <code>p</code> of elements.
-   */
-  void nearest(Point p, TObjectProcedure<T> procedure, double distance);
+    /**
+     * Execute <code>procedure</code> on all elements that are in less or equal
+     * distance of <code>p</code> than <code>distance</code>.
+     *
+     * @param p         the point from where to measure distance.
+     * @param procedure the procedure to call on each element.
+     * @param distance  the maximum distance from <code>p</code> of elements.
+     */
+    void nearest(Point p, TObjectProcedure<T> procedure, double distance);
 
-  /**
-   * Acquire a set of all elements that are in less or equal distance of
-   * <code>p</code> than <code>distance</code>.
-   * 
-   * @param p
-   *            the point from where to measure distance.
-   * @param distance
-   *            the maximum distance from <code>p</code> of elements.
-   * @return the set all elements found in less distance than
-   *         <code>distance</code>.
-   */
-  Set<T> nearest(Point p, double distance);
+    /**
+     * Acquire a set of all elements that are in less or equal distance of
+     * <code>p</code> than <code>distance</code>.
+     *
+     * @param p        the point from where to measure distance.
+     * @param distance the maximum distance from <code>p</code> of elements.
+     * @return the set all elements found in less distance than
+     * <code>distance</code>.
+     */
+    Set<T> nearest(Point p, double distance);
 
-  /**
-   * Returns the number of entries in this index.
-   * 
-   * @return the number of elements.
-   */
-  int size();
+    /**
+     * Returns the number of entries in this index.
+     *
+     * @return the number of elements.
+     */
+    int size();
 
 }

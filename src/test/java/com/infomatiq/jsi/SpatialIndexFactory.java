@@ -25,18 +25,18 @@ import com.infomatiq.jsi.rtree.RTree;
  */
 public class SpatialIndexFactory {
 
-  public static SpatialIndex newInstance(IndexType type) {
-    switch (type) {
-    default:
-    case NULL_INDEX:
-      return new NullIndex();
-    case SIMPLE_INDEX:
-      return new SimpleIndex();
-    case RTREE:
-      return new RTree();
-    case RTREE_WRAPPER:
-      return new RTreeWrapper();
+    public static SpatialIndex newInstance(IndexType type) {
+        switch (type) {
+            default:
+            case NULL_INDEX:
+                return new NullIndex();
+            case SIMPLE_INDEX:
+                return new SimpleIndex();
+            case RTREE:
+                return new RTree();
+            case RTREE_WRAPPER:
+                return new RTreeWrapper();
+        }
     }
-  }
 
 }

@@ -26,32 +26,32 @@ import java.util.List;
  */
 public class SortedListDecorator extends ListDecorator {
 
-  public SortedListDecorator(SpatialIndex si) {
-    super(si);
-  }
+    public SortedListDecorator(SpatialIndex si) {
+        super(si);
+    }
 
-  private List<Integer> sort(List<Integer> l) {
-    Collections.sort(l);
-    return l;
-  }
+    private List<Integer> sort(List<Integer> l) {
+        Collections.sort(l);
+        return l;
+    }
 
-  @Override
-  public List<Integer> nearestN(Point p, int maxCount, double furthestDistance) {
-    return sort(super.nearestN(p, maxCount, furthestDistance));
-  }
+    @Override
+    public List<Integer> nearestN(Point p, int maxCount, double furthestDistance) {
+        return sort(super.nearestN(p, maxCount, furthestDistance));
+    }
 
-  @Override
-  public List<Integer> nearest(Point p, double furthestDistance) {
-    return sort(super.nearest(p, furthestDistance));
-  }
+    @Override
+    public List<Integer> nearest(Point p, double furthestDistance) {
+        return sort(super.nearest(p, furthestDistance));
+    }
 
-  @Override
-  public List<Integer> intersects(Rectangle r) {
-    return sort(super.intersects(r));
-  }
+    @Override
+    public List<Integer> intersects(Rectangle r) {
+        return sort(super.intersects(r));
+    }
 
-  @Override
-  public List<Integer> contains(Rectangle r) {
-    return sort(super.contains(r));
-  }
+    @Override
+    public List<Integer> contains(Rectangle r) {
+        return sort(super.contains(r));
+    }
 }

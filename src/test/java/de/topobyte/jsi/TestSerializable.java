@@ -16,45 +16,45 @@
 
 package de.topobyte.jsi;
 
+import com.infomatiq.jsi.Rectangle;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Set;
 
-import com.infomatiq.jsi.Rectangle;
-
 /**
  * @author Sebastian Kuerten (sebastian@topobyte.de)
  */
 public class TestSerializable {
 
-  /**
-  * Test serialization of an RTree. Underlying library does not implement
-  * Serializable, thus Externalizable has been implemented.
-  *
-  * @param args none.
-  * @throws Exception on failure.
-  */
-  public static void main(String[] args) throws Exception {
-    GenericRTree<Integer> tree = new GenericRTree<>(1, 10);
-    tree.add(new Rectangle(1, 3, 2, 4), 99);
-    tree.add(new Rectangle(1, 3, 2, 4), 88);
-    Set<Integer> i = tree.intersects(new Rectangle(-10, -10, 10, 10));
-    System.out.println(i);
+    /**
+     * Test serialization of an RTree. Underlying library does not implement
+     * Serializable, thus Externalizable has been implemented.
+     *
+     * @param args none.
+     * @throws Exception on failure.
+     */
+    public static void main(String[] args) throws Exception {
+        GenericRTree<Integer> tree = new GenericRTree<>(1, 10);
+        tree.add(new Rectangle(1, 3, 2, 4), 99);
+        tree.add(new Rectangle(1, 3, 2, 4), 88);
+        Set<Integer> i = tree.intersects(new Rectangle(-10, -10, 10, 10));
+        System.out.println(i);
 
-    ObjectOutputStream oos = new ObjectOutputStream(new
-        FileOutputStream("/tmp/baxx"));
-    oos.writeObject(tree);
-    oos.close();
+        ObjectOutputStream oos = new ObjectOutputStream(new
+                                                                FileOutputStream("/tmp/baxx"));
+        oos.writeObject(tree);
+        oos.close();
 
-    ObjectInputStream ois = new ObjectInputStream(new
-        FileInputStream("/tmp/baxx"));
-    GenericRTree<Integer> tree2 = (GenericRTree<Integer>) ois.readObject();
-    ois.close();
+        ObjectInputStream ois = new ObjectInputStream(new
+                                                              FileInputStream("/tmp/baxx"));
+        GenericRTree<Integer> tree2 = (GenericRTree<Integer>) ois.readObject();
+        ois.close();
 
-    Set<Integer> k = tree2.intersects(new Rectangle(-10, -10, 10, 10));
-    System.out.println(k);
-  }
+        Set<Integer> k = tree2.intersects(new Rectangle(-10, -10, 10, 10));
+        System.out.println(k);
+    }
 
 }

@@ -49,6 +49,133 @@ public class Rectangle {
     }
 
     /**
+     * Determine whether or not two rectangles intersect
+     *
+     * @param r1MinX minimum X coordinate of rectangle 1
+     * @param r1MinY minimum Y coordinate of rectangle 1
+     * @param r1MaxX maximum X coordinate of rectangle 1
+     * @param r1MaxY maximum Y coordinate of rectangle 1
+     * @param r2MinX minimum X coordinate of rectangle 2
+     * @param r2MinY minimum Y coordinate of rectangle 2
+     * @param r2MaxX maximum X coordinate of rectangle 2
+     * @param r2MaxY maximum Y coordinate of rectangle 2
+     * @return true if r1 intersects r2, false otherwise.
+     */
+    static public boolean intersects(double r1MinX, double r1MinY, double r1MaxX, double r1MaxY,
+                                     double r2MinX, double r2MinY, double r2MaxX, double r2MaxY) {
+        return r1MaxX >= r2MinX && r1MinX <= r2MaxX && r1MaxY >= r2MinY && r1MinY <= r2MaxY;
+    }
+
+    /**
+     * Determine whether or not one rectangle contains another.
+     *
+     * @param r1MinX minimum X coordinate of rectangle 1
+     * @param r1MinY minimum Y coordinate of rectangle 1
+     * @param r1MaxX maximum X coordinate of rectangle 1
+     * @param r1MaxY maximum Y coordinate of rectangle 1
+     * @param r2MinX minimum X coordinate of rectangle 2
+     * @param r2MinY minimum Y coordinate of rectangle 2
+     * @param r2MaxX maximum X coordinate of rectangle 2
+     * @param r2MaxY maximum Y coordinate of rectangle 2
+     * @return true if r1 contains r2, false otherwise.
+     */
+    static public boolean contains(double r1MinX, double r1MinY, double r1MaxX, double r1MaxY,
+                                   double r2MinX, double r2MinY, double r2MaxX, double r2MaxY) {
+        return r1MaxX >= r2MaxX && r1MinX <= r2MinX && r1MaxY >= r2MaxY && r1MinY <= r2MinY;
+    }
+
+    /**
+     * Return the distance between a rectangle and a point.
+     * If the rectangle contains the point, the distance is zero.
+     *
+     * @param minX minimum X coordinate of rectangle
+     * @param minY minimum Y coordinate of rectangle
+     * @param maxX maximum X coordinate of rectangle
+     * @param maxY maximum Y coordinate of rectangle
+     * @param pX   X coordinate of point
+     * @param pY   Y coordinate of point
+     * @return distance beween this rectangle and the passed point.
+     */
+    static public double distance(double minX, double minY, double maxX, double maxY,
+                                  double pX, double pY) {
+        return (double) Math.sqrt(distanceSq(minX, minY, maxX, maxY, pX, pY));
+    }
+
+    static public double distanceSq(double minX, double minY, double maxX, double maxY,
+                                    double pX, double pY) {
+        double distanceSqX = 0;
+        double distanceSqY = 0;
+
+        if (minX > pX) {
+            distanceSqX = minX - pX;
+            distanceSqX *= distanceSqX;
+        } else if (pX > maxX) {
+            distanceSqX = pX - maxX;
+            distanceSqX *= distanceSqX;
+        }
+
+        if (minY > pY) {
+            distanceSqY = minY - pY;
+            distanceSqY *= distanceSqY;
+        } else if (pY > maxY) {
+            distanceSqY = pY - maxY;
+            distanceSqY *= distanceSqY;
+        }
+
+        return distanceSqX + distanceSqY;
+    }
+
+    /**
+     * Calculate the area by which a rectangle would be enlarged if
+     * added to the passed rectangle..
+     *
+     * @param r1MinX minimum X coordinate of rectangle 1
+     * @param r1MinY minimum Y coordinate of rectangle 1
+     * @param r1MaxX maximum X coordinate of rectangle 1
+     * @param r1MaxY maximum Y coordinate of rectangle 1
+     * @param r2MinX minimum X coordinate of rectangle 2
+     * @param r2MinY minimum Y coordinate of rectangle 2
+     * @param r2MaxX maximum X coordinate of rectangle 2
+     * @param r2MaxY maximum Y coordinate of rectangle 2
+     * @return enlargement
+     */
+    static public double enlargement(double r1MinX, double r1MinY, double r1MaxX, double r1MaxY,
+                                     double r2MinX, double r2MinY, double r2MaxX, double r2MaxY) {
+        double r1Area = (r1MaxX - r1MinX) * (r1MaxY - r1MinY);
+
+        if (r1Area == Double.POSITIVE_INFINITY) {
+            return 0; // cannot enlarge an infinite rectangle...
+        }
+
+        if (r2MinX < r1MinX) r1MinX = r2MinX;
+        if (r2MinY < r1MinY) r1MinY = r2MinY;
+        if (r2MaxX > r1MaxX) r1MaxX = r2MaxX;
+        if (r2MaxY > r1MaxY) r1MaxY = r2MaxY;
+
+        double r1r2UnionArea = (r1MaxX - r1MinX) * (r1MaxY - r1MinY);
+
+        if (r1r2UnionArea == Double.POSITIVE_INFINITY) {
+            // if a finite rectangle is enlarged and becomes infinite,
+            // then the enlargement must be infinite.
+            return Double.POSITIVE_INFINITY;
+        }
+        return r1r2UnionArea - r1Area;
+    }
+
+    /**
+     * Compute the area of a rectangle.
+     *
+     * @param minX the minimum X coordinate of the rectangle
+     * @param minY the minimum Y coordinate of the rectangle
+     * @param maxX the maximum X coordinate of the rectangle
+     * @param maxY the maximum Y coordinate of the rectangle
+     * @return The area of the rectangle
+     */
+    static public double area(double minX, double minY, double maxX, double maxY) {
+        return (maxX - minX) * (maxY - minY);
+    }
+
+    /**
      * Sets the size of the rectangle.
      *
      * @param x1 coordinate of any corner of the rectangle
@@ -101,24 +228,6 @@ public class Rectangle {
     }
 
     /**
-     * Determine whether or not two rectangles intersect
-     *
-     * @param r1MinX minimum X coordinate of rectangle 1
-     * @param r1MinY minimum Y coordinate of rectangle 1
-     * @param r1MaxX maximum X coordinate of rectangle 1
-     * @param r1MaxY maximum Y coordinate of rectangle 1
-     * @param r2MinX minimum X coordinate of rectangle 2
-     * @param r2MinY minimum Y coordinate of rectangle 2
-     * @param r2MaxX maximum X coordinate of rectangle 2
-     * @param r2MaxY maximum Y coordinate of rectangle 2
-     * @return true if r1 intersects r2, false otherwise.
-     */
-    static public boolean intersects(double r1MinX, double r1MinY, double r1MaxX, double r1MaxY,
-                                     double r2MinX, double r2MinY, double r2MaxX, double r2MaxY) {
-        return r1MaxX >= r2MinX && r1MinX <= r2MaxX && r1MaxY >= r2MinY && r1MinY <= r2MaxY;
-    }
-
-    /**
      * Determine whether this rectangle contains the passed rectangle
      *
      * @param r The rectangle that might be contained by this rectangle
@@ -127,24 +236,6 @@ public class Rectangle {
      */
     public boolean contains(Rectangle r) {
         return maxX >= r.maxX && minX <= r.minX && maxY >= r.maxY && minY <= r.minY;
-    }
-
-    /**
-     * Determine whether or not one rectangle contains another.
-     *
-     * @param r1MinX minimum X coordinate of rectangle 1
-     * @param r1MinY minimum Y coordinate of rectangle 1
-     * @param r1MaxX maximum X coordinate of rectangle 1
-     * @param r1MaxY maximum Y coordinate of rectangle 1
-     * @param r2MinX minimum X coordinate of rectangle 2
-     * @param r2MinY minimum Y coordinate of rectangle 2
-     * @param r2MaxX maximum X coordinate of rectangle 2
-     * @param r2MaxY maximum Y coordinate of rectangle 2
-     * @return true if r1 contains r2, false otherwise.
-     */
-    static public boolean contains(double r1MinX, double r1MinY, double r1MaxX, double r1MaxY,
-                                   double r2MinX, double r2MinY, double r2MaxX, double r2MaxY) {
-        return r1MaxX >= r2MaxX && r1MinX <= r2MinX && r1MaxY >= r2MaxY && r1MinY <= r2MinY;
     }
 
     /**
@@ -190,47 +281,6 @@ public class Rectangle {
     }
 
     /**
-     * Return the distance between a rectangle and a point.
-     * If the rectangle contains the point, the distance is zero.
-     *
-     * @param minX minimum X coordinate of rectangle
-     * @param minY minimum Y coordinate of rectangle
-     * @param maxX maximum X coordinate of rectangle
-     * @param maxY maximum Y coordinate of rectangle
-     * @param pX   X coordinate of point
-     * @param pY   Y coordinate of point
-     * @return distance beween this rectangle and the passed point.
-     */
-    static public double distance(double minX, double minY, double maxX, double maxY,
-                                  double pX, double pY) {
-        return (double) Math.sqrt(distanceSq(minX, minY, maxX, maxY, pX, pY));
-    }
-
-    static public double distanceSq(double minX, double minY, double maxX, double maxY,
-                                    double pX, double pY) {
-        double distanceSqX = 0;
-        double distanceSqY = 0;
-
-        if (minX > pX) {
-            distanceSqX = minX - pX;
-            distanceSqX *= distanceSqX;
-        } else if (pX > maxX) {
-            distanceSqX = pX - maxX;
-            distanceSqX *= distanceSqX;
-        }
-
-        if (minY > pY) {
-            distanceSqY = minY - pY;
-            distanceSqY *= distanceSqY;
-        } else if (pY > maxY) {
-            distanceSqY = pY - maxY;
-            distanceSqY *= distanceSqY;
-        }
-
-        return distanceSqX + distanceSqY;
-    }
-
-    /**
      * Return the distance between this rectangle and the passed rectangle.
      * If the rectangles overlap, the distance is zero.
      *
@@ -270,61 +320,11 @@ public class Rectangle {
     }
 
     /**
-     * Calculate the area by which a rectangle would be enlarged if
-     * added to the passed rectangle..
-     *
-     * @param r1MinX minimum X coordinate of rectangle 1
-     * @param r1MinY minimum Y coordinate of rectangle 1
-     * @param r1MaxX maximum X coordinate of rectangle 1
-     * @param r1MaxY maximum Y coordinate of rectangle 1
-     * @param r2MinX minimum X coordinate of rectangle 2
-     * @param r2MinY minimum Y coordinate of rectangle 2
-     * @param r2MaxX maximum X coordinate of rectangle 2
-     * @param r2MaxY maximum Y coordinate of rectangle 2
-     * @return enlargement
-     */
-    static public double enlargement(double r1MinX, double r1MinY, double r1MaxX, double r1MaxY,
-                                     double r2MinX, double r2MinY, double r2MaxX, double r2MaxY) {
-        double r1Area = (r1MaxX - r1MinX) * (r1MaxY - r1MinY);
-
-        if (r1Area == Double.POSITIVE_INFINITY) {
-            return 0; // cannot enlarge an infinite rectangle...
-        }
-
-        if (r2MinX < r1MinX) r1MinX = r2MinX;
-        if (r2MinY < r1MinY) r1MinY = r2MinY;
-        if (r2MaxX > r1MaxX) r1MaxX = r2MaxX;
-        if (r2MaxY > r1MaxY) r1MaxY = r2MaxY;
-
-        double r1r2UnionArea = (r1MaxX - r1MinX) * (r1MaxY - r1MinY);
-
-        if (r1r2UnionArea == Double.POSITIVE_INFINITY) {
-            // if a finite rectangle is enlarged and becomes infinite,
-            // then the enlargement must be infinite.
-            return Double.POSITIVE_INFINITY;
-        }
-        return r1r2UnionArea - r1Area;
-    }
-
-    /**
      * Compute the area of this rectangle.
      *
      * @return The area of this rectangle
      */
     public double area() {
-        return (maxX - minX) * (maxY - minY);
-    }
-
-    /**
-     * Compute the area of a rectangle.
-     *
-     * @param minX the minimum X coordinate of the rectangle
-     * @param minY the minimum Y coordinate of the rectangle
-     * @param maxX the maximum X coordinate of the rectangle
-     * @param maxY the maximum Y coordinate of the rectangle
-     * @return The area of the rectangle
-     */
-    static public double area(double minX, double minY, double maxX, double maxY) {
         return (maxX - minX) * (maxY - minY);
     }
 
