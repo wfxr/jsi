@@ -113,11 +113,9 @@ public class Rectangle {
      * @param r2MaxY maximum Y coordinate of rectangle 2
      * @return true if r1 intersects r2, false otherwise.
      */
-    static public boolean intersects(double r1MinX, double r1MinY, double r1MaxX,
-                                     double r1MaxY,
+    static public boolean intersects(double r1MinX, double r1MinY, double r1MaxX, double r1MaxY,
                                      double r2MinX, double r2MinY, double r2MaxX, double r2MaxY) {
-        return r1MaxX >= r2MinX && r1MinX <= r2MaxX && r1MaxY >= r2MinY
-               && r1MinY <= r2MaxY;
+        return r1MaxX >= r2MinX && r1MinX <= r2MaxX && r1MaxY >= r2MinY && r1MinY <= r2MaxY;
     }
 
     /**
@@ -144,11 +142,9 @@ public class Rectangle {
      * @param r2MaxY maximum Y coordinate of rectangle 2
      * @return true if r1 contains r2, false otherwise.
      */
-    static public boolean contains(double r1MinX, double r1MinY, double r1MaxX,
-                                   double r1MaxY,
+    static public boolean contains(double r1MinX, double r1MinY, double r1MaxX, double r1MaxY,
                                    double r2MinX, double r2MinY, double r2MaxX, double r2MaxY) {
-        return r1MaxX >= r2MaxX && r1MinX <= r2MinX && r1MaxY >= r2MaxY
-               && r1MinY <= r2MinY;
+        return r1MaxX >= r2MaxX && r1MinX <= r2MinX && r1MaxY >= r2MaxY && r1MinY <= r2MinY;
     }
 
     /**
@@ -210,8 +206,8 @@ public class Rectangle {
         return (double) Math.sqrt(distanceSq(minX, minY, maxX, maxY, pX, pY));
     }
 
-    static public double distanceSq(double minX, double minY, double maxX,
-                                    double maxY, double pX, double pY) {
+    static public double distanceSq(double minX, double minY, double maxX, double maxY,
+                                    double pX, double pY) {
         double distanceSqX = 0;
         double distanceSqY = 0;
 
@@ -287,8 +283,7 @@ public class Rectangle {
      * @param r2MaxY maximum Y coordinate of rectangle 2
      * @return enlargement
      */
-    static public double enlargement(double r1MinX, double r1MinY, double r1MaxX,
-                                     double r1MaxY,
+    static public double enlargement(double r1MinX, double r1MinY, double r1MaxX, double r1MaxY,
                                      double r2MinX, double r2MinY, double r2MaxX, double r2MaxY) {
         double r1Area = (r1MaxX - r1MinX) * (r1MaxY - r1MinY);
 
