@@ -80,7 +80,7 @@ public class RTree implements SpatialIndex {
     // initialisation
     private int treeHeight = 1; // leaves are always level 1
     private int rootNodeId = 0;
-    private int size = 0;
+    private int size       = 0;
 
     // Enables creation of new nodes
     private int highestUsedNodeId = rootNodeId;
@@ -544,6 +544,24 @@ public class RTree implements SpatialIndex {
     public void intersects(Rectangle r, TIntProcedure v) {
         Node rootNode = getNode(rootNodeId);
         intersects(r, v, rootNode);
+    }
+
+    public void intersectsRightHalfLine(double x, double y, TIntProcedure v) {
+        Node rootNode = getNode(rootNodeId);
+        intersectsRightHalfLine(x, y, v, rootNode);
+    }
+
+    private boolean intersectsRightHalfLine(double x, double y, TIntProcedure v, Node n) {
+        for (int i = 0; i < n.entryCount; i++) {
+            if (n.entriesMinY[i] <= y && y <= n.entriesMaxY[i] && x <= n.entriesMaxX[i]) {
+                if (n.isLeaf()) {
+                    if (!v.execute(n.ids[i])) return false;
+                } else if (!intersectsRightHalfLine(x, y, v, getNode(n.ids[i])))  {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
